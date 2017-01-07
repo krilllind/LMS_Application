@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var AddToClassController = function ($scope, Request) {
+    var AddToClassController = function ($scope, Request, Popup) {
 
         var addToClass = function (student) {
             if ($scope.selectedClass) {
@@ -13,7 +13,7 @@
                 });
             }
             else {
-                alert("Please select a class first!");
+                Popup.Message("Sorry", "You need to select a school class before you can add students.", Popup.types.info, { confirmText: "Got it!" });
             }
         }
 
@@ -53,6 +53,7 @@
     LMSApp.controller("AddToClassController", [
         "$scope",
         "Request",
+        "Popup",
         AddToClassController
     ]);
 
