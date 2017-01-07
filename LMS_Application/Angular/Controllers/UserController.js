@@ -18,12 +18,16 @@
                             });
                         }
                         else {
-                            Popup.Message("Added!", "New user " + $scope.user.firstname + " has been added.", Popup.types.ok, {
-                                timer: 5000
-                            }).then(function (response) {
-                                angular.copy($scope.user, $scope.copyUser);
+                            Popup.Message("Added!", "New user " + $scope.user.firstname + " has been added.", Popup.types.ok, { timer: 5000 }).then(function (res) {
+                                var tmpUser = angular.copy($scope.user);
+
+                                console.log(tmpUser);
+
+                                $scope.registerForm.$setPristine();
+                                $scope.registerForm.$setUntouched();
+                                
                                 $scope.user = {}
-                                $scope.user.userRole = $scope.copyUser.userRole;
+                                $scope.user.userRole = tmpUser.userRole;
                             });
                         }
                     });
