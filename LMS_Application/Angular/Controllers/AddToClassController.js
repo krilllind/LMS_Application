@@ -5,12 +5,11 @@
         var addToClass = function (student) {
             if ($scope.selectedClass) {
                 var index = $scope.students.indexOf(student);
-
                 if (index != -1)
                     $scope.students.splice(index, 1);
 
-                $scope.selectedClass.students.push(student)
-                Request.Make("/Data/AddStudentsToClass/", "post", { classID: $scope.selectedClass.ID, studentSSN: student.ssn }).then(function (res) {
+                Request.Make("/Data/AddStudentsToClass/", "post", JSON.stringify({ classID: $scope.selectedClass.id, studentSSN: student.ssn })).then(function (res) {
+                    $scope.selectedClass.students.push(student);
                     console.log(res);
                 });
             }
@@ -24,7 +23,10 @@
             if (index != -1)
                 $scope.selectedClass.students.splice(index, 1);
 
-            $scope.students.push(student);
+            Request.Make("/Data/RemmoveStudentsFromClass/", "post", JSON.stringify({ classID: $scope.selectedClass.id, studentSSN: student.ssn })).then(function (res) {
+                $scope.students.push(student);
+                console.log(res);
+            });
         }
 
         var setSelectedClass = function (cls) {

@@ -29,7 +29,7 @@ namespace LMS_Application.Controllers
             this._jsonSettings = new JsonSerializerSettings()
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
         }
 
@@ -66,11 +66,14 @@ namespace LMS_Application.Controllers
 
             foreach (var Student in Students)
             {
-                tmp.Add(new {
-                    Firstname = Student.Firstname,
-                    Lastname = Student.Lastname,
-                    SSN = Student.SSN
-                });
+                if (Student.SchoolClassID == null)
+                {
+                    tmp.Add(new {
+                        Firstname = Student.Firstname,
+                        Lastname = Student.Lastname,
+                        SSN = Student.SSN
+                    });
+                }
             }
 
             return JsonConvert.SerializeObject(tmp, Formatting.None, _jsonSettings);
@@ -81,14 +84,17 @@ namespace LMS_Application.Controllers
         {
             ApplicationUser student = _context.Users.Single(o => o.SSN == studentSSN);
             _context.SchoolClasses.Single(o => o.SchoolClassID == classID).Students.Add(student);
+            _context.SaveChanges();
             return new HttpStatusCodeResult(HttpStatusCode.OK, "Student added to class");
         }
 
         [HttpPost]
-        public void RemmoveStudentsFromClass(string classID, string studentSSN)
+        public ActionResult RemmoveStudentsFromClass(string classID, string studentSSN)
         {
             ApplicationUser student = _context.Users.Single(o => o.SSN == studentSSN);
             _context.SchoolClasses.Single(o => o.SchoolClassID == classID).Students.Remove(student);
+            _context.SaveChanges();
+            return new HttpStatusCodeResult(HttpStatusCode.OK, "Student removed from class");
         }
 
         [HttpGet]
