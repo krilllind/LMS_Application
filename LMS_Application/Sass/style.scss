@@ -1,0 +1,26 @@
+﻿// Bootstrap
+@import "_bootstrap.scss";
+
+// Variables
+@import "Variables/Variables.scss";
+
+// Mixins
+@import "Mixins/Mixins.scss";
+
+// Typography styles
+@import "Typography/Typography.scss";
+
+// Font styles
+@import "Font/Font.scss";
+
+// Form styles
+@import "Form/Form.scss";
+
+// Image styles
+@import "Img/Image.scss";
+
+// Theme styles
+@import "Themes/Themes.scss";
+
+// My own styles
+@import "CustomStyles/CustomStyles";

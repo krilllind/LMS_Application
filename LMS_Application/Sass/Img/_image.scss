@@ -1,0 +1,73 @@
+﻿.image-wrapper
+{
+    position: relative;
+    padding: 0;
+
+    &-box
+    {
+        position: relative;
+        padding: 0;
+
+        &::after
+        {
+            content: "";
+            display: inline-block;
+            padding-top: 100%;
+        }
+    }
+
+    &::after
+    {
+        content: "";
+        display: block;
+        padding-top: 56.25%;
+    }
+}
+
+.image
+{
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    &.image-fit
+    {
+        background-size: cover !important;
+    }
+
+    &.logo-sm
+    {
+        background: url('/Resources/Img/Logo/Koop-Forum-logo-small.png') center center no-repeat;
+    }
+
+    &.logo
+    {
+        background: url('/Resources/Img/Logo/Koop-Forum-169.png') center center no-repeat;
+        background-size: contain;
+        margin-left: -5%;
+        margin-bottom: 5%;
+    }
+
+    &.login-background
+    {
+        background: url('/Resources/Img/login-background.jpg') center center no-repeat;
+        background-size: cover !important;
+        z-index: -1;
+        position: fixed;
+
+        &::after
+        {
+            content: "";
+            display: block;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: $background-overlay-dark;
+        }
+    }
+}

@@ -1,0 +1,35 @@
+﻿.theme-light 
+{
+    h2, h3, h4, h5, h6
+    {
+        color: $header-color-light;
+    }
+
+    p
+    {
+        color: $text-color-light;
+    }
+
+    label
+    {
+        color: $text-color-light;
+    }
+}
+
+.theme-dark
+{
+    h2, h3, h4, h5, h6
+    {
+        color: $header-color-dark;
+    }
+
+    p
+    {
+        color: $text-color-dark;
+    }
+
+    label
+    {
+        color: $text-color-dark;
+    }
+}

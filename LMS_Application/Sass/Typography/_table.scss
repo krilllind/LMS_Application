@@ -1,0 +1,11 @@
+﻿.table-wrapper
+{
+    display: table;
+    height: 100vh;
+
+    .table-content
+    {
+        display: table-cell;
+        vertical-align: middle;
+    }
+}

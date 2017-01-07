@@ -1,0 +1,164 @@
+﻿.side-panel
+{
+    height: 100vh;
+    position: relative;
+    background: $background-overlay-dark;
+
+    ul
+    {
+        list-style-type: none;
+        padding: 0;
+
+        li
+        {
+            padding: 0;
+            border-top: 1px solid $text-color-dark;
+
+            a
+            {
+                display: block;
+                padding: 10px 20px;
+                color: $text-color-light;
+
+                &:hover,
+                &:focus,
+                &:active
+                {
+                    background: $background-dark;
+                    text-decoration: none;
+
+                    .fa
+                    {
+                        transform: scale(1.3);
+                    }
+                }
+            }
+
+            &:last-of-type
+            {
+                border-bottom: 1px solid $text-color-dark;
+            }
+        }
+    }
+
+    .user-profile
+    {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+           
+        .table-fill
+        {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            .table-content
+            {
+                width: 100%;
+                height: 100%;
+                display: table;
+
+                .content
+                {
+                    display: table-cell;
+                    vertical-align: middle;
+                    font-size: 25px;
+                    width: auto;
+                    text-align: center;
+                    color: $text-color-light;
+                    background: $background-dark;
+                    cursor: pointer;
+
+                    transition: box-shadow 0.1s ease-in-out, color 0.1s ease-in-out;
+                    -webkit-transition: box-shadow 0.1s ease-in-out, color 0.1s ease-in-out;
+
+                    .fa
+                    {
+                        color: inherit;
+                    }
+
+                    &:hover
+                    {
+                        color: $main-color;
+
+                        -webkit-box-shadow: inset 0px 0px 145px 0px rgba(0,0,0,0.8);
+                        -moz-box-shadow: inset 0px 0px 145px 0px rgba(0,0,0,0.8);
+                        box-shadow: inset 0px 0px 145px 0px rgba(0,0,0,0.8);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.animated-search
+{
+    position: relative;
+    height: 50px;
+
+    .fa
+    {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-260%, -52%);
+        font-size: 18px;
+
+        transition: all 0.25s ease-in-out;
+        -webkit-transition: all 0.25s ease-in-out;
+
+        &::after
+        {
+            content: "Search";
+            padding-left: 10px;
+            font-size: 20px;
+            color: $text-color-default;
+
+            transition: opacity 0.25s ease-in-out;
+            -webkit-transition: opacity 0.25s ease-in-out;
+        }
+    }
+
+    input[type=text]
+    {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        background: transparent;
+        border: 1px solid $text-color-default;
+        font-size: 18px;
+        z-index: 2;
+        cursor: pointer;
+
+        transition: background 0.25s ease-in-out;
+        -webkit-transition: background 0.25s ease-in-out;
+
+        &:focus
+        {
+            background: $background-light;
+            padding-left: 40px;
+            border: 1px solid $main-color;
+            cursor: text;
+
+            & ~ .fa
+            {
+                left: 10px;
+                transform: translate(0, -52%);
+                z-index: 3;
+                cursor: text;
+
+                &::after
+                {
+                    opacity: 0;
+                    cursor: text;
+                }
+            }
+        }
+    }
+}

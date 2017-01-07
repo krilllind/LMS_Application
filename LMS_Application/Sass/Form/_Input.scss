@@ -1,0 +1,177 @@
+﻿.form-group
+{
+    @media (max-width: $screen-sm-min) {
+        & + &
+        {
+            margin-top: 20px;
+        }
+    }
+
+    label
+    {
+        cursor: pointer;
+    }
+
+    input, button, select
+    {
+        border-radius: 0 !important;
+    }
+
+    .input-group
+    {
+        select
+        {
+            + .input-group-addon
+            {
+                .fa
+                {
+                    color: $success-color;
+                }
+            }
+        }
+    }
+
+    input
+    {
+        &[type=text],
+        &[type=email],
+        &[type=password]
+        {
+            outline: none;
+            box-shadow: none;
+
+            &:focus
+            {
+                border: 1px solid $main-color;
+                border-right: 1px solid $border-color-default;
+
+                & + .input-group-addon
+                {
+                    border: 1px solid $main-color;
+                    border-left: none; 
+
+                    .fa
+                    {
+                        color: $main-color;
+                    }
+                }
+            }
+
+        }
+
+        &[type=checkbox]
+        {
+            display: none;
+
+            & + .custom-checkbox
+            {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                background: #FFFFFF;
+                position: relative;
+                vertical-align: middle;
+                margin-right: 7px;
+
+                &::after
+                {
+                    display: block;
+                    font-family: "fontawesome";
+                    color: $main-color;
+                    content: "\f00c";
+                    position: absolute;
+                    opacity: 0;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -51%);
+                    text-align: center;
+                    font-size: 15px;
+
+                    transition: opacity 0.1s ease-in-out;
+                    -webkit-transition: opacity 0.1s ease-in-out;
+                }
+            }
+
+            &:checked + .custom-checkbox::after
+            {
+                opacity: 1;
+            }
+        }
+    }
+
+    .input-group-addon
+    {
+        border-radius: 0;
+
+        .fa
+        {
+            width: 20px;
+            transition: color 0.1s ease-in-out;
+            -webkit-transition: color 0.1s ease-in-out;
+        }
+    }
+
+    .login-btn
+    {
+        background: transparent;
+        font-size: 18px;
+        color: $text-color-default;
+        border: 1px solid $text-color-default;
+        padding: 10px;
+        outline: none;
+        position: relative;
+
+        transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
+        -webkit-transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
+
+        .fa
+        {
+            margin: 0 0 0 -20px;
+            padding: 0 10px 0 0;
+        }
+
+        &:hover,
+        &:focus,
+        &:active
+        {
+            background: $background-light;
+            color: $text-color-dark;
+        }
+    }
+
+    .reset-password
+    {
+        color: $text-color-default;
+        opacity: 0.5;
+
+        &:hover
+        {
+            opacity: 1;
+        }
+    }
+}
+
+.dragAndDropBox
+{
+    height: 100%;
+    margin: 10px auto 0 auto;
+    border: 2px dashed $border-color-default;
+    display: table;
+
+    &:after
+    {
+        content: "";
+        display: block;
+        padding-top: 50%;
+    }
+
+    &:before
+    {
+        content: "Drop file...";
+        text-transform: uppercase;
+        font-size: 40px;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+    }
+}

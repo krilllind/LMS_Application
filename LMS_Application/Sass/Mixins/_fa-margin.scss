@@ -1,0 +1,31 @@
+﻿// FontAwesome margin
+
+@mixin fa-margin($space, $n) {
+    &.give-space
+    {
+        margin: 0 $space;
+
+        &-right
+        {
+            margin-right: $space;
+
+            @for $i from 2 to $n {
+                &-x#{$i} {
+                    margin-right: $space * $i;
+                }
+            } 
+        }
+
+        &-left
+        {
+            margin-left: $space;
+
+            @for $i from 2 to $n {
+                &-x#{$i} {
+                    margin-left: $space * $i;
+                }
+            }
+        }
+    }
+
+}

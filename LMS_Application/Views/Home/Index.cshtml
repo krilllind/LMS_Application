@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<button type="button" class="toggle-nav hidden-btn hide" title="Open menu">
+    <i class="fa fa-align-left" aria-hidden="true"></i>
+    <span>Menu</span>
+</button>
+
+<nav class="side-panel col-md-3 col-sm-4 col-xs-9 animated" id="document-nav" ng-controller="NavigationController">
+    <button type="button" class="toggle-nav" title="Hide menu">
+        <i class="ion-ios-close-empty" aria-hidden="true"></i>
+    </button>
+
+    <div class="row">
+        <header class="col-xs-12">
+            <h2 class="text-center close-bottom">
+                <i class="fa fa-bandcamp give-space-right-x3" aria-hidden="true"></i>
+                <span>Float <sup>∞</sup></span>
+            </h2>
+        </header>
+
+        <h5 class="col-xs-12 close-bottom">Menu</h5>
+
+        <ul class="col-xs-12">
+            <li class="col-xs-12">
+                <a href="/#/Courses/" title="">
+                    <i class="fa fa-tasks give-space-right center-icon transition" aria-hidden="true"></i>
+                    <span>My courses</span>
+                </a>
+            </li>
+
+            <li class="col-xs-12">
+                <a href="/#/Schedule/" title="">
+                    <i class="fa fa-calendar give-space-right center-icon transition" aria-hidden="true"></i>
+                    <span>Schedule</span>
+                </a>
+            </li>
+        </ul>
+
+        <div ng-if="user.userRole" ng-include="'/Resources/Templates/_navPartial.html'"></div>
+    </div>
+
+    <div class="row">
+        <h5 class="col-xs-12 close-bottom">Looking for something?</h5>
+
+        <form method="post" action="#" class="col-xs-12">
+            <div class="form-group">
+                <div class="input-group col-xs-12">
+                    <div class="animated-search">
+                        <input type="text" class="col-xs-12" name="search" onblur="this.value=''" ng-model="searchText" />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row user-profile">
+        <div class="image-wrapper-box col-xs-3">
+            <div class="image image-fit" bg-image="user.profileImage"></div>
+        </div>
+
+        <div class="image-wrapper-box col-xs-3" title="{{user.firstname}} {{user.lastname}} profile">
+            <div class="table-fill">
+                <div class="table-content">
+                    <div class="content">
+                        <span>{{user.firstname[0]}}{{user.lastname[0]}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="image-wrapper-box col-xs-3" title="Settings">
+            <div class="table-fill">
+                <div class="table-content">
+                    <div class="content">
+                        <i class="fa fa-cogs give-space-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="image-wrapper-box col-xs-3" title="Sign out" ng-click="LogOut()">
+            <div class="table-fill">
+                <div class="table-content">
+                    <div class="content">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="col-md-9 col-sm-8 col-xs-12 animated" id="document-content">
+    <div id="document-content-wrapper">
+        <div class="row view-animation" ng-view></div>
+    </div>
+</div>

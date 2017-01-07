@@ -1,0 +1,76 @@
+﻿@using LMS_Application.Models
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="image login-background"></div>
+
+<div class="container theme-light">
+    <div class="row">
+        <div class="table-wrapper">
+            <div class="table-content">
+                <div class="col-sm-5 col-sm-push-7 col-sm-offset-0 col-xs-10 col-xs-push-0 col-xs-offset-1">
+                    <div class="col-xs-12 image-wrapper">
+                        <div class="image logo"></div>
+                    </div>
+
+                    <form class="row col-xs-12" method="post" action="/Account/Login/">
+                        @Html.AntiForgeryToken()
+
+                        <div class="col-xs-12">
+                            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                        </div>
+
+                        <div class="form-group col-xs-12">
+                            <div class="input-group">
+                                <input type="email" class="form-control input-lg" name="Email" id="Email" placeholder="Email" required />
+                                <div class="input-group-addon"><i class="fa fa-lg fa-user center-icon-block" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-12">
+                            <div class="input-group">
+                                <input type="password" class="form-control input-lg" name="Password" id="Password" placeholder="Password" required />
+                                <div class="input-group-addon"><i class="fa fa-lg fa-lock center-icon-block" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                            <label for="RememberMe" id="RememberMeLabel" class="no-select">
+                                <input type="checkbox" name="RememberMe" id="RememberMe" />
+                                <span class="custom-checkbox"></span>
+                                <span>Remember Me</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                            <button type="submit" class="login-btn col-xs-12">
+                                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                                <span>Login</span>
+                            </button>
+                        </div>
+
+                        <div class="form-group col-xs-12 text-right">
+                            <a href="#" class="reset-password">Forgot password?</a>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-sm-1 hidden-xs">
+                    <div class="verticalLine"></div>
+                </div>
+
+                <div class="col-sm-6 col-sm-pull-7 col-sm-offset-0 col-xs-10 col-xs-push-0 col-xs-offset-1">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <h2>Välkommen till Koop Forum!</h2>
+                        <p>Här kan du få oändlig tillgång till spontana ångest attacker!</p>
+                        <p>Lärare: "Mina studenter har deadlines varje dag!"</p>
+                        <p>Student: "Jag har självmordstankar.."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

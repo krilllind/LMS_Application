@@ -1,0 +1,43 @@
+﻿.toggle-nav
+{
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    z-index: 5;
+    background: transparent;
+    border: none;
+    outline: 0;
+        
+    .ion-ios-close-empty
+    {
+        color: $text-color-dark;
+        font-size: 35px;
+
+        &:hover
+        {
+            color: $text-color-light;
+        }
+    }
+
+    &.hidden-btn
+    {
+        top: 23px;
+        color: $text-color-dark;
+        display: inline-block;
+        opacity: 0.8;
+
+        transition: opacity 0.2s ease-in-out;
+        -webkit-transition: opacity 0.2s ease-in-out;
+
+        .fa
+        {
+            color: $text-color-dark;
+            vertical-align: middle;
+        }
+
+        &.hide
+        {
+            opacity: 0;
+        }
+    }
+}
