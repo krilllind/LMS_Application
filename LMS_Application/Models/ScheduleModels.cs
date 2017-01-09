@@ -12,8 +12,6 @@ namespace LMS_Application.Models
         [Key, ForeignKey("SchoolClass")]
         public string ScheduleID { get; set; }
 
-        public DateTime ValidUntil { get; set; }
-
         public virtual SchoolClassModels SchoolClass { get; set; }
 
         public virtual ICollection<CourseModels> Courses { get; set; }
