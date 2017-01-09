@@ -1,7 +1,8 @@
 ﻿(function () {
 
-    var ClassController = function ($scope, Request, Popup, $filter) {
+    var ClassController = function ($scope, Request, Popup, $filter, $routeParams) {
 
+        // Add student to school class //
         var addToClass = function (student) {
             if ($scope.selectedClass) {
                 var index = $scope.students.indexOf(student);
@@ -17,6 +18,7 @@
             }
         }
 
+        // Remove student from school class //
         var removeFromClass = function (student) {
             var index = $scope.selectedClass.students.indexOf(student);
             if (index != -1)
@@ -27,10 +29,12 @@
             });
         }
 
+        // Set selected school class from list //
         var setSelectedClass = function (cls) {
             $scope.selectedClass = cls;
         }
 
+        // Create new school class //
         var createNewClass = function (isValid) {
             if (isValid) {
                 var schoolClassTmp = angular.copy($scope.schoolClass);
@@ -71,8 +75,16 @@
         });
 
         // Gets all students from the server //
-        Request.Make("/Data/GetAllStudents/", "get").then(function (res) {
-            $scope.students = res.data;
+        Request.Make("/Data/GetAllUsers/", "get", { roleFilter: "Student" }).then(function (res) {
+            var tmp = [];
+
+            angular.forEach(res.data, function (value, key) {
+                if (value.schoolClassID == null) {
+                    tmp.push(value);
+                }
+            });
+
+            $scope.students = tmp;
         });
 
         $scope.Add = addToClass;
@@ -82,6 +94,15 @@
         $scope.selectedClass;
         $scope.classes = [];
         $scope.students = [];
+
+        // Get current subpage //
+        $scope.currentPage = ($routeParams.handle || "create").toLowerCase();
+        $scope.template = {
+            create: basePath + "/Class/_create.html",
+            edit: basePath + "/Class/_edit.html",
+            addStudents: basePath + "/Class/_addStudents.html",
+            remove: basePath + "/Class/_remove.html"
+        };
 
         // Adding new class //
         $scope.CreateNewClass = createNewClass;
@@ -93,6 +114,7 @@
         "Request",
         "Popup",
         "$filter",
+        "$routeParams",
         ClassController
     ]);
 
