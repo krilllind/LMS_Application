@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Data.Entity;
 
 namespace LMS_Application.Repositories
 {
@@ -210,12 +211,12 @@ namespace LMS_Application.Repositories
         /// Gets all users from the database
         /// </summary>
         /// <param name="RoleFilter">
-        /// Filter on rolename, null gets all
+        /// Filter on rolename, null returns all
         /// </param>
         /// <returns>
         /// Returns a list of ApplicationUsers
         /// </returns>
-        public async Task<List<ApplicationUser>> GetAllStudentsAsync(string RoleFilter = null)
+        public List<ApplicationUser> GetAllUsers(string RoleFilter = null)
         {
             List<ApplicationUser> users = _context.Users.ToList();
 
@@ -225,7 +226,7 @@ namespace LMS_Application.Repositories
 
                 foreach (ApplicationUser user in users)
                 {
-                    if (await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().IsInRoleAsync(user.Id, RoleFilter))
+                    if (System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().IsInRole(user.Id, RoleFilter))
                     {
                         tmp.Add(user);
                     }
@@ -235,6 +236,19 @@ namespace LMS_Application.Repositories
             }
 
             return users;
+        }
+
+        public async Task<bool> UpdateUserAsync(ApplicationUser user, string userRole)
+        {
+            _context.Entry(user).State = EntityState.Modified;
+            await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().RemoveFromRolesAsync(user.Id, _context.Roles.Select(o => o.Name).ToArray());
+            await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().AddToRoleAsync(user.Id, userRole);
+            _context.SaveChanges();
+
+            if (_context.Users.Where(o => o.SSN == user.SSN).Any())
+                return true;
+
+            return false;
         }
     }
 }
