@@ -238,9 +238,26 @@ namespace LMS_Application.Repositories
             return users;
         }
 
+        /// <summary>
+        /// Updates a user in the database
+        /// This method is async
+        /// </summary>
+        /// <param name="user">
+        /// User to update
+        /// </param>
+        /// <param name="userRole">
+        /// User role to update
+        /// </param>
+        /// <returns>
+        /// Returns a bool indicating success or not
+        /// </returns>
         public async Task<bool> UpdateUserAsync(ApplicationUser user, string userRole)
         {
+            var tmp = await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByIdAsync(user.Id);
+            user.SecurityStamp = tmp.SecurityStamp;
+            user.PasswordHash = tmp.PasswordHash;
             _context.Entry(user).State = EntityState.Modified;
+
             await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().RemoveFromRolesAsync(user.Id, _context.Roles.Select(o => o.Name).ToArray());
             await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().AddToRoleAsync(user.Id, userRole);
             _context.SaveChanges();
