@@ -664,7 +664,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
 
     tests['cssreflections'] = function() {
-        return testPropsAll('boxReflect');
+        return testPropsAll('bohreflect');
     };
 
 
