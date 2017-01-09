@@ -65,7 +65,8 @@
             create: basePath + "/User/_create.html",
             edit: basePath + "/User/_edit.html",
             remove: basePath + "/User/_remove.html",
-            form: basePath + "/User/_form.html"
+            form: basePath + "/User/_form.html",
+            form_password: basePath + "/User/_form_password.html",
         };
 
         // Variables //
@@ -78,9 +79,15 @@
         switch ($scope.currentPage) {
             case "create":
                 sendFormTo = "/Account/Register/";
+                $scope.submitBtnText = "Register";
                 break;
             case "edit":
                 sendFormTo = "/Data/UpdateUser/";
+                $scope.submitBtnText = "Update";
+                break;
+            case "remove":
+                sendFormTo = "/Data/RemoveUser/";
+                $scope.submitBtnText = "Remove";
                 break;
         }
     }
