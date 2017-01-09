@@ -1,0 +1,12 @@
+﻿<h4 class="col-sm-6 col-xs-12">Edit user</h4>
+
+<div class="form-group col-sm-6 col-xs-12 margin-top-bottom">
+    <div class="input-group">
+        <select class="form-control input-lg" ng-model="selectedUser" ng-change="SetSelectUser(selectedUser)">
+            <option value="" disabled selected>Select user</option>
+            <option ng-repeat="user in users" value="{{user.ssn}}">{{user.lastname}} {{user.firstname}}, {{user.ssn}}</option>
+        </select>
+    </div>
+</div>
+
+<div ng-if="selectedUser" ng-include="template.form"></div>

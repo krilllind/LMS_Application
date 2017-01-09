@@ -1,0 +1,10 @@
+﻿<div class="theme-dark">
+    <ul class="nav nav-tabs">
+        <li role="presentation" ng-class="{'active' : currentPage == 'create'}"><a xref="/Manage/Class/Create/">Create</a></li>
+        <li role="presentation" ng-class="{'active' : currentPage == 'edit'}"><a xref="/Manage/Class/Edit/">Edit</a></li>
+        <li role="presentation" ng-class="{'active' : currentPage == 'addstudents'}"><a xref="/Manage/Class/AddStudents/">Add students</a></li>
+        <li role="presentation" ng-class="{'active' : currentPage == 'remove'}"><a xref="/Manage/Class/Remove/">Remove</a></li>
+    </ul>
+
+    <div ng-include="template[currentPage]"></div>
+</div>

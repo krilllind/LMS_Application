@@ -1,0 +1,98 @@
+﻿<form method="post" name="registerForm" ng-submit="SendForm(registerForm.$valid)" class="row col-xs-12" novalidate autocomplete="off">
+    <div class="form-group col-sm-6 col-xs-12">
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="firstname" id="firstname" placeholder="Firstname" ng-model="user.firstname" ng-pattern="/^([a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" ng-minlength="1" ng-maxlength="50" validate="registerForm.firstname" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="registerForm.firstname.$error">
+                    <div ng-message="required">Firstname is required.</div>
+                    <div ng-message="pattern">Firstname can only contain characters A-Ö.</div>
+                    <div ng-message="valueUsed">{{registerForm.firstname.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="lastname" id="lastname" placeholder="Lastname" ng-model="user.lastname" ng-pattern="/^([a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" ng-minlength="1" ng-maxlength="50" validate="registerForm.lastname" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="registerForm.lastname.$error">
+                    <div ng-message="required">Lastname is required.</div>
+                    <div ng-message="pattern">Lastname can only contain characters A-Ö.</div>
+                    <div ng-message="valueUsed">{{registerForm.lastname.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="ssn" id="ssn" placeholder="SSN" ng-model="user.ssn" ng-pattern="/^[0-9]+$/" ng-minlength="12" ng-maxlength="12" validate="registerForm.ssn" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-key center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="registerForm.ssn.$error">
+                    <div ng-message="required">A Social Security Number is required.</div>
+                    <div ng-message="pattern">The Social Security Number can only contain numbers.</div>
+                    <div ng-message="minlength || maxlength">The Social Security Number must be exactly 12 numbers long.</div>
+                    <div ng-message="valueUsed">{{registerForm.ssn.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" ng-model="user.phoneNumber" ng-pattern="/^[0-9]+$/" ng-minlength="10" ng-maxlength="10" validate="registerForm.phoneNumber" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-mobile center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="registerForm.phoneNumber.$error">
+                    <div ng-message="required">Phonenumber is required.</div>
+                    <div ng-message="pattern">The phonenumber can only contain numbers.</div>
+                    <div ng-message="minlength || maxlength">The phonenumber must be exactly 10 numbers long.</div>
+                    <div ng-message="valueUsed">{{registerForm.phoneNumber.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <div class="input-group">
+            <input type="email" class="form-control input-lg" name="email" id="email" placeholder="Email" ng-model="user.email" ng-pattern="/^.+@.+$/" validate="registerForm.email" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-at center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="registerForm.email.$error">
+                    <div ng-messages="required">Email is required.</div>
+                    <div ng-messages="pattern">Email must be a valid email address.</div>
+                    <div ng-messages="valueUsed">{{registerForm.email.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <div class="input-group">
+            <select class="form-control input-lg" name="userRole" id="userRole" ng-model="user.userRole" required>
+                <option value="" disabled selected>Select Role</option>
+                <option ng-repeat="role in roles" value="{{role}}">{{role}}</option>
+            </select>
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-universal-access center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="registerForm.role.$error">
+                    <div ng-messages="required">Role is required.</div>
+                    <div ng-messages="valueUsed">{{registerForm.role.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="currentPage == 'create'" ng-include="template.form_password"></div>
+
+    <div class="form-group col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
+        <button type="submit" class="col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
+            <i class="fa fa-paper-plane-o fa-lg" aria-hidden="true"></i>
+            <span>{{submitBtnText}}</span>
+        </button>
+    </div>
+</form>
