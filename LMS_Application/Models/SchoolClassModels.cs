@@ -12,7 +12,11 @@ namespace LMS_Application.Models
         [Key]
         public string SchoolClassID { get; set; }
 
+        [Required]
         public string Name { get; set; }
+
+        [Required]
+        public DateTime ValidTo { get; set; }
 
         public virtual ScheduleModels Schedule { get; set; }
         
