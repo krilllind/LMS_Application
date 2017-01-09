@@ -2,13 +2,27 @@
 // Init angular application (global)
 var LMSApp = angular.module("LMS-app", ['ngRoute', 'ngAnimate', 'ngMessages']);
 
+// Path to angular templates //
+var basePath = "/Resources/Templates/";
+
 // Init angular routing
 LMSApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
-    var basePath = "/Resources/Templates/";
 
     $routeProvider
         .when("/", {
             templateUrl: basePath + "_courses.html"
+        })
+        .when("/Manage/Users/:handle?", {
+            controller: "UserController",
+            templateUrl: basePath + "_manageUser.html"
+        })
+        .when("/Manage/Classes/:handle?", {
+            controller: "ClassController",
+            templateUrl: basePath + "_manageClass.html"
+        })
+        .when("/Manage/Schedules/:handle?", {
+            controller: "ScheduleController",
+            templateUrl: basePath + "_manageSchedule.html"
         })
         .when("/Courses/:lessonName?", {
             controller: "CourseController",
@@ -18,25 +32,9 @@ LMSApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, 
             controller: "ScheduleController",
             templateUrl: basePath + "_schedule.html"
         })
-        .when("/Schedule/Manage/", {
-            controller: "ScheduleController",
-            templateUrl: basePath + "_manageSchedule.html"
-        })
         .when("/File/TempPage/", {
             controller: "FileController",
             templateUrl: basePath + "_fileUpload.html"
-        })
-        .when("/User/New/", {
-            controller: "UserController",
-            templateUrl: basePath + "_newUser.html"
-        })
-        .when("/Class/New/", {
-            controller: "ClassController",
-            templateUrl: basePath + "_newClass.html"
-        })
-        .when("/Class/Add/", {
-            controller: "ClassController",
-            templateUrl: basePath + "_addToClass.html"
         })
         .otherwise({
             templateUrl: basePath + "_404.html"
