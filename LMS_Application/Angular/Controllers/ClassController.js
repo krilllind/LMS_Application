@@ -41,7 +41,7 @@
                 schoolClassTmp.validTo = $filter('date')(schoolClassTmp.validTo, "yyyy-MM-dd");
 
                 Request.Make("/Account/GetAntiForgeryToken/", "post").then(function (token) {
-                    Request.Make("/Data/CreateNewSchoolClass/", "post", JSON.stringify(schoolClassTmp), null, { 'RequestVerificationToken': token.data }).then(function (res) {
+                    Request.Make(sendFormTo, "post", JSON.stringify(schoolClassTmp), null, { 'RequestVerificationToken': token.data }).then(function (res) {
                         if (res.status.error) {
                             var fields = JSON.parse(res.message);
                             delete fields["$id"];
@@ -89,7 +89,7 @@
 
         $scope.Add = addToClass;
         $scope.Remove = removeFromClass;
-        $scope.SetClass = setSelectedClass;
+        $scope.SetSelectedClass = setSelectedClass;
 
         $scope.selectedClass;
         $scope.classes = [];
@@ -100,13 +100,31 @@
         $scope.template = {
             create: basePath + "/Class/_create.html",
             edit: basePath + "/Class/_edit.html",
-            addStudents: basePath + "/Class/_addStudents.html",
+            addstudents: basePath + "/Class/_addStudents.html",
             remove: basePath + "/Class/_remove.html"
         };
 
+        // Set form post destination //
+        var sendFormTo;
+        switch ($scope.currentPage) {
+            case "create":
+                sendFormTo = "/Data/CreateNewSchoolClass/";
+                $scope.submitBtnText = "Create";
+                break;
+            case "edit":
+                sendFormTo = "/Data/UpdateUser/";
+                $scope.submitBtnText = "Update";
+                break;
+            case "remove":
+                sendFormTo = "/Data/RemoveUser/";
+                $scope.submitBtnText = "Remove";
+                break;
+        }
+
         // Adding new class //
         $scope.CreateNewClass = createNewClass;
-        $scope.schoolClass;
+        $scope.schoolClass = {};
+        $scope.dateToday = new Date();
     }
 
     LMSApp.controller("ClassController", [
