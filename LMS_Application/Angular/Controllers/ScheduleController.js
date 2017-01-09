@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var ScheduleController = function ($scope, Request, Schedule) {
+    var ScheduleController = function ($scope, Request, Schedule, $routeParams) {
         var canvas = document.getElementById("ScheduleCanvas");
         var spinner = document.getElementById("canvasLoading");
 
@@ -14,12 +14,21 @@
                 canvas.style.opacity = 1;
             });
         });
+
+        // Get current subpage //
+        $scope.currentPage = ($routeParams.handle || "create").toLowerCase();
+        $scope.template = {
+            create: basePath + "/Schedule/_create.html",
+            edit: basePath + "/Schedule/_edit.html",
+            remove: basePath + "/Schedule/_remove.html"
+        };
     }
 
     LMSApp.controller('ScheduleController', [
         '$scope',
         'Request',
         'Schedule',
+        '$routeParams',
         ScheduleController
     ]);
 
