@@ -8,7 +8,6 @@
 
         var LogOut = function () {
             Popup.Message("Logout", "Are you sure you want to logout?", Popup.types.warning, { enableCancel: true }).then(function (res) {
-                console.log(res);
                 if (res === true) {
                     Request.Make("/Account/LogOff/", "post").then(function (res) {
                         if (res.status.ok) {
@@ -20,7 +19,6 @@
         }
 
         Request.Make("/Data/GetUserInformation/", "get").then(function (res) {
-            console.log(res);
             $scope.user = res.data[0];
             $scope.user.userRole = ((res.data[0].userRole === "Teacher") ? true : false);
         });
