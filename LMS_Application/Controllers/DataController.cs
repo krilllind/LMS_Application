@@ -97,6 +97,20 @@ namespace LMS_Application.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK, "Student removed from class");
         }
 
+        [HttpPost]
+        public ActionResult CreateNewSchoolClass(SchoolClassModels model)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.SchoolClasses.Add(model);
+                _context.SaveChanges();
+
+                return new HttpStatusCodeResult(HttpStatusCode.OK, "New school class created");
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Could not create new school class");
+        }
+
         [HttpGet]
         public async Task<string> GetUserInformation()
         {
