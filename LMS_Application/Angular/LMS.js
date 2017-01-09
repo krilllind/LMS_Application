@@ -7,20 +7,19 @@ var basePath = "/Resources/Templates/";
 
 // Init angular routing
 LMSApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
-
     $routeProvider
         .when("/", {
             templateUrl: basePath + "_courses.html"
         })
-        .when("/Manage/Users/:handle?", {
+        .when("/Manage/User/:handle?", {
             controller: "UserController",
-            templateUrl: basePath + "_manageUser.html"
+            templateUrl: basePath + "_user.html"
         })
-        .when("/Manage/Classes/:handle?", {
+        .when("/Manage/Class/:handle?", {
             controller: "ClassController",
-            templateUrl: basePath + "_manageClass.html"
+            templateUrl: basePath + "_class.html"
         })
-        .when("/Manage/Schedules/:handle?", {
+        .when("/Manage/Schedule/:handle?", {
             controller: "ScheduleController",
             templateUrl: basePath + "_manageSchedule.html"
         })
