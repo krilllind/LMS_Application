@@ -23,15 +23,15 @@ namespace LMS_Application.Migrations
             var UserManager = new UserManager<ApplicationUser>(UserStore);
 
             // Create a schoolclass //
-            context.SchoolClasses.Add(new SchoolClassModels() { Name = "NA3B", Schedule = new ScheduleModels() { ValidUntil = DateTime.Now } });
-            context.SchoolClasses.Add(new SchoolClassModels() { Name = "TE2B", Schedule = new ScheduleModels() { ValidUntil = DateTime.Now } });
-            context.SchoolClasses.Add(new SchoolClassModels() { Name = "BF1A", Schedule = new ScheduleModels() { ValidUntil = DateTime.Now } });
-            context.SchoolClasses.Add(new SchoolClassModels() { Name = "BF1B", Schedule = new ScheduleModels() { ValidUntil = DateTime.Now } });
-            context.SchoolClasses.Add(new SchoolClassModels() { Name = "DA9B", Schedule = new ScheduleModels() { ValidUntil = DateTime.Now } });
-            context.SchoolClasses.Add(new SchoolClassModels() { Name = "TE2A", Schedule = new ScheduleModels() { ValidUntil = DateTime.Now } });
-            context.SchoolClasses.Add(new SchoolClassModels() { Name = "TE3A", Schedule = new ScheduleModels() { ValidUntil = DateTime.Now } });
-            context.SchoolClasses.Add(new SchoolClassModels() { Name = "ROL2B", Schedule = new ScheduleModels() { ValidUntil = DateTime.Now } });
-            context.SchoolClasses.Add(new SchoolClassModels() { Name = "ROL2A", Schedule = new ScheduleModels() { ValidUntil = DateTime.Now } });
+            context.SchoolClasses.Add(new SchoolClassModels() { Name = "NA3B",  ValidTo = new DateTime(2017, 12, 01) });
+            context.SchoolClasses.Add(new SchoolClassModels() { Name = "TE2B", ValidTo = new DateTime(2017, 12, 01) });
+            context.SchoolClasses.Add(new SchoolClassModels() { Name = "BF1A", ValidTo = new DateTime(2017, 12, 01) });
+            context.SchoolClasses.Add(new SchoolClassModels() { Name = "BF1B", ValidTo = new DateTime(2017, 12, 01) });
+            context.SchoolClasses.Add(new SchoolClassModels() { Name = "DA9B", ValidTo = new DateTime(2017, 12, 01) });
+            context.SchoolClasses.Add(new SchoolClassModels() { Name = "TE2A", ValidTo = new DateTime(2017, 12, 01) });
+            context.SchoolClasses.Add(new SchoolClassModels() { Name = "TE3A", ValidTo = new DateTime(2017, 12, 01) });
+            context.SchoolClasses.Add(new SchoolClassModels() { Name = "ROL2B", ValidTo = new DateTime(2017, 12, 01) });
+            context.SchoolClasses.Add(new SchoolClassModels() { Name = "ROL2A", ValidTo = new DateTime(2017, 12, 01) });
 
             // Create a teacher user //
             var TmpUser = new ApplicationUser()

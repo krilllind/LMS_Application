@@ -170,6 +170,10 @@
     <Compile Include="Migrations\201701061855278_initial.Designer.cs">
       <DependentUpon>201701061855278_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701072135329_changeToSchoolClassModel_ScheduleModel.cs" />
+    <Compile Include="Migrations\201701072135329_changeToSchoolClassModel_ScheduleModel.Designer.cs">
+      <DependentUpon>201701072135329_changeToSchoolClassModel_ScheduleModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ScheduleModels.cs" />
@@ -183,7 +187,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Angular\Controllers\AddToClassController.js" />
+    <Content Include="Angular\Controllers\ClassController.js" />
     <Content Include="Angular\Controllers\CourseController.js" />
     <Content Include="Angular\Controllers\FileController.js" />
     <Content Include="Angular\Controllers\NavigationController.js" />
@@ -214,7 +218,9 @@
     <Content Include="Resources\Templates\_addToClass.html" />
     <Content Include="Resources\Templates\_courses.html" />
     <Content Include="Resources\Templates\_fileUpload.html" />
+    <Content Include="Resources\Templates\_manageSchedule.html" />
     <Content Include="Resources\Templates\_navPartial.html" />
+    <Content Include="Resources\Templates\_newClass.html" />
     <Content Include="Resources\Templates\_newUser.html" />
     <Content Include="Resources\Templates\_schedule.html" />
     <Content Include="Scripts\angular-animate.js" />
@@ -396,6 +402,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701061855278_initial.resx">
       <DependentUpon>201701061855278_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701072135329_changeToSchoolClassModel_ScheduleModel.resx">
+      <DependentUpon>201701072135329_changeToSchoolClassModel_ScheduleModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
