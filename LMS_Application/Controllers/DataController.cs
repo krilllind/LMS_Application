@@ -59,21 +59,27 @@ namespace LMS_Application.Controllers
         }
 
         [HttpGet]
-        public async Task<string> GetAllStudents()
+        public async Task<string> GetAllUsers(string roleFilter = null)
         {
-            List<ApplicationUser> Students = await _repo.GetAllStudentsAsync("Student");
+            List<ApplicationUser> Users = _repo.GetAllUsers(roleFilter);
             List<object> tmp = new List<object>();
 
-            foreach (var Student in Students)
+            foreach (var user in Users)
             {
-                if (Student.SchoolClassID == null)
-                {
-                    tmp.Add(new {
-                        Firstname = Student.Firstname,
-                        Lastname = Student.Lastname,
-                        SSN = Student.SSN
-                    });
-                }
+                var rolesForUser = await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().GetRolesAsync(user.Id);
+
+                tmp.Add(new {
+                    Id = user.Id,
+                    Firstname = user.Firstname,
+                    Lastname = user.Lastname,
+                    SSN = user.SSN,
+                    ProfileImage = user.ProfileImage ?? "http://placehold.it/100x100",
+                    UserRole = rolesForUser.ToList().SingleOrDefault(),
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    UserName = user.UserName,
+                    SchoolClassID = user.SchoolClassID
+                });
             }
 
             return JsonConvert.SerializeObject(tmp, Formatting.None, _jsonSettings);
@@ -164,6 +170,17 @@ namespace LMS_Application.Controllers
             };
 
             return JsonConvert.SerializeObject(test, Formatting.None, _jsonSettings);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateUser(ApplicationUser user, string userRole)
+        {
+            bool isUpdated = await _repo.UpdateUserAsync(user, userRole);
+
+            if (isUpdated)
+                return new HttpStatusCodeResult(HttpStatusCode.OK, "User has been updated.");
+
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "User could not be updated.");
         }
     }
 }
