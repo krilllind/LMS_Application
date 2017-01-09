@@ -20,7 +20,12 @@
         var make = function (TO, TYPE, DATA, ENCTYPE, HEADERS) {
             TO = TO || null;
             TYPE = TYPE || null;
-            DATA = DATA || null;
+
+            if (TYPE == "get")
+                PARAMS = DATA || null;
+            else
+                DATA = DATA || null;
+
             HEADERS = HEADERS || null;
             ENCTYPE = ENCTYPE || "application/x-www-form-urlencoded";
 
@@ -42,6 +47,7 @@
                 url: TO,
                 method: TYPE,
                 enctype: ENCTYPE,
+                params: PARAMS,
                 data: DATA,
                 headers: HEADERS,
                 transformRequest: angular.identity
