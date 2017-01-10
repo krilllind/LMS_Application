@@ -239,8 +239,7 @@ namespace LMS_Application.Repositories
         }
 
         /// <summary>
-        /// Updates a user in the database
-        /// This method is async
+        /// Updates a user in the database.
         /// </summary>
         /// <param name="user">
         /// User to update
@@ -260,12 +259,28 @@ namespace LMS_Application.Repositories
 
             await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().RemoveFromRolesAsync(user.Id, _context.Roles.Select(o => o.Name).ToArray());
             await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().AddToRoleAsync(user.Id, userRole);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
-            if (_context.Users.Where(o => o.SSN == user.SSN).Any())
-                return true;
+            return _context.Users.Where(o => o.SSN == user.SSN).Any();
+        }
 
-            return false;
+        /// <summary>
+        /// Removes a user from the database.
+        /// </summary>
+        /// <param name="user">
+        /// User to remove
+        /// </param>
+        /// <returns>
+        /// Returns a bool indicating success or not
+        /// </returns>
+        public async Task<bool> RemoveUserAsync(ApplicationUser user)
+        {
+            await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().RemoveFromRolesAsync(user.Id, _context.Roles.Select(o => o.Name).ToArray());
+            ApplicationUser u = await _context.Users.SingleAsync(o => o.SSN == user.SSN);
+            _context.Users.Remove(u);
+            await _context.SaveChangesAsync();
+
+            return !(_context.Users.Where(o => o.SSN == user.SSN).Any());
         }
     }
 }
