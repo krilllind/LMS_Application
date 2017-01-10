@@ -123,14 +123,13 @@ namespace LMS_Application.Controllers
             var User_id = User.Identity.GetUserId();
             var rolesForUser = await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().GetRolesAsync(User_id);
 
-            var CurrentUser = _context.Users.Select(o => new
-            {
+            object CurrentUser = _context.Users.Select(o => new {
                 Id = o.Id,
                 Firstname = o.Firstname,
                 Lastname = o.Lastname,
                 ProfileImage = o.ProfileImage ?? "http://placehold.it/100x100",
                 UserRole = rolesForUser.ToList().FirstOrDefault()
-            }).Where(o => o.Id == User_id);
+            }).Single(o => o.Id == User_id);
 
             return JsonConvert.SerializeObject(CurrentUser, Formatting.None, _jsonSettings);
         }
@@ -181,6 +180,17 @@ namespace LMS_Application.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.OK, "User has been updated.");
 
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "User could not be updated.");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RemoveUser(ApplicationUser user)
+        {
+            bool isRemoved = await _repo.RemoveUserAsync(user);
+
+            if (isRemoved)
+                return new HttpStatusCodeResult(HttpStatusCode.OK, "User has been removed");
+
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "User could not be removed");
         }
     }
 }
