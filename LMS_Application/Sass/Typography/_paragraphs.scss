@@ -8,6 +8,8 @@
     {
         margin-top: 15px;
     }
+
+    @include font-scale (5px, 10);
 }
 
 a
