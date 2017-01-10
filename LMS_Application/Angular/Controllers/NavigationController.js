@@ -19,8 +19,8 @@
         }
 
         Request.Make("/Data/GetUserInformation/", "get").then(function (res) {
-            $scope.user = res.data[0];
-            $scope.user.userRole = ((res.data[0].userRole === "Teacher") ? true : false);
+            $scope.user = res.data;
+            $scope.user.userRole = ((res.data.userRole === "Teacher") ? true : false);
         });
 
         $scope.$watch("searchText", SearchFiler);
