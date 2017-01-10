@@ -62,7 +62,9 @@
             angular.forEach($scope.users, function (value, key) {
                 if (value.ssn == ssn) {
                     $scope.user = angular.copy(value);
-                    document.getElementsByName("registerForm")[0].querySelectorAll("button[type=submit]")[0].removeAttribute("disabled");
+                    angular.forEach(document.getElementsByName("registerForm")[0].querySelectorAll(toDisable), function (value, key) {
+                        value.removeAttribute("disabled");
+                    });
                     return;
                 }
             });
@@ -109,6 +111,7 @@
         // Set form post destination //
         var sendFormTo;
         var popupResponseMessage;
+        var toDisable;
         switch ($scope.currentPage) {
             case "create":
                 sendFormTo = "/Account/Register/";
@@ -118,11 +121,13 @@
             case "edit":
                 sendFormTo = "/Data/UpdateUser/";
                 popupResponseMessage = "User has successfully been updated!";
+                toDisable = "input, select, button[type=submit]";
                 $scope.submitBtnText = "Update";
                 break;
             case "remove":
                 sendFormTo = "/Data/RemoveUser/";
                 popupResponseMessage = "User has successfully been removed!";
+                toDisable = "button[type=submit]";
                 $scope.submitBtnText = "Remove";
                 break;
         }
