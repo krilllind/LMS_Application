@@ -1,39 +1,45 @@
-﻿@using LMS_Application.Models
-@model LoginViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Log in";
 }
 
 <div class="image login-background"></div>
 
-<div class="container theme-light">
+<div class="container theme-light" ng-controller="LoginController">
     <div class="row">
         <div class="table-wrapper">
             <div class="table-content">
                 <div class="col-sm-5 col-sm-push-7 col-sm-offset-0 col-xs-10 col-xs-push-0 col-xs-offset-1">
-                    <div class="col-xs-12 image-wrapper">
-                        <div class="image logo"></div>
+                    <div class="col-xs-12 margin-top-bottom">
+                        <h2 class="text-center close-bottom font-size-x4">
+                            <i class="fa fa-bandcamp give-space-right-x4" aria-hidden="true"></i>
+                            <span>Float <sup>∞</sup></span>
+                        </h2>
                     </div>
 
-                    <form class="row col-xs-12" method="post" action="/Account/Login/">
-                        @Html.AntiForgeryToken()
-
-                        <div class="col-xs-12">
-                            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
-                        </div>
-
+                    <form method="post" name="loginForm" ng-submit="SendForm(loginForm.$valid)" class="row col-xs-12 margin-top-bottom" novalidate autocomplete="off">
                         <div class="form-group col-xs-12">
                             <div class="input-group">
-                                <input type="email" class="form-control input-lg" name="Email" id="Email" placeholder="Email" required />
-                                <div class="input-group-addon"><i class="fa fa-lg fa-user center-icon-block" aria-hidden="true"></i></div>
+                                <input type="email" class="form-control input-lg" name="email" id="email" placeholder="Email" ng-model="user.email" ng-pattern="/^.+@("@").+$/" validate="loginForm.email" required />
+                                <div class="input-group-addon">
+                                    <i class="fa fa-lg fa-user center-icon-block" aria-hidden="true"></i>
+                                    <div class="help-block info" ng-messages="loginForm.email.$error">
+                                        <div ng-messages="required">Email is required.</div>
+                                        <div ng-messages="pattern">Email must be a valid email address.</div>
+                                        <div ng-messages="valueUsed">{{loginForm.email.valueUsedMessage}}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group col-xs-12">
                             <div class="input-group">
-                                <input type="password" class="form-control input-lg" name="Password" id="Password" placeholder="Password" required />
-                                <div class="input-group-addon"><i class="fa fa-lg fa-lock center-icon-block" aria-hidden="true"></i></div>
+                                <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Password" ng-model="user.password" validate="loginForm.password" required />
+                                <div class="input-group-addon">
+                                    <i class="fa fa-lg fa-lock center-icon-block" aria-hidden="true"></i>
+                                    <div class="help-block info" ng-messages="loginForm.password.$error">
+                                        <div ng-messages="required">Password is required.</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -64,10 +70,10 @@
 
                 <div class="col-sm-6 col-sm-pull-7 col-sm-offset-0 col-xs-10 col-xs-push-0 col-xs-offset-1">
                     <div class="col-sm-10 col-sm-offset-1">
-                        <h2>Välkommen till Koop Forum!</h2>
-                        <p>Här kan du få oändlig tillgång till spontana ångest attacker!</p>
-                        <p>Lärare: "Mina studenter har deadlines varje dag!"</p>
-                        <p>Student: "Jag har självmordstankar.."</p>
+                        <h2>Welcome to <br />Float Infinity!</h2>
+                        <p class="font-size-x4">Sign in to administrate and access all your classes and assignments from the click of a button!</p>
+                        <p>Learning management systems range from systems for managing training and educational records to software for distributing online or blended/hybrid college courses over the Internet with features for online collaboration, school districts, and schools use LMSs to deliver online courses and augment on-campus courses. LMSs also act to augment the lessons the teacher is giving in a brick and mortar environment, not just replace them.</p>
+                        <p>Corporate training departments use LMSs to deliver online training, as well as to automate record-keeping and employee registration."</p>
                     </div>
                 </div>
             </div>
