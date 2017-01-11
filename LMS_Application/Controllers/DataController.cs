@@ -51,6 +51,7 @@ namespace LMS_Application.Controllers
                 tmp.Add(new {
                     ID = SchoolClass.SchoolClassID,
                     Name = SchoolClass.Name,
+                    ValidTo = SchoolClass.ValidTo,
                     Students = SchoolClass.Students
                 });
             }
@@ -115,6 +116,28 @@ namespace LMS_Application.Controllers
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Could not create new school class");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateSchoolClass(SchoolClassModels schoolClass)
+        {
+            bool isUpdated = await _repo.UpdateSchoolClassAsync(schoolClass);
+
+            if (isUpdated)
+                return new HttpStatusCodeResult(HttpStatusCode.OK, "School class successfully updated");
+
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Could not update school class");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RemoveSchoolClass(SchoolClassModels schoolClass)
+        {
+            bool isRemoved = await _repo.RemoveSchoolClassByIdAsync(schoolClass);
+
+            if (isRemoved)
+                return new HttpStatusCodeResult(HttpStatusCode.OK, "School class successfully removed");
+
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Could not remove school class");
         }
 
         [HttpGet]
