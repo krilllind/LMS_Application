@@ -360,6 +360,8 @@
     <Content Include="project.vendor.min.js.map" />
     <Content Include="Scripts\angular-messages.min.js.map" />
     <Content Include="Sass\Mixins\_font-scale.scss" />
+    <Content Include="Sass\File\File.scss" />
+    <Content Include="Sass\File\_dragNdrop.scss" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
