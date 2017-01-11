@@ -1,2 +1,12 @@
-﻿<h4 class="col-xs-12">Remove user</h4>
+﻿<h4 class="col-sm-6 col-xs-12">Remove user</h4>
 
+<div class="form-group col-sm-6 col-xs-12 margin-top-bottom">
+    <div class="input-group">
+        <select class="form-control input-lg" ng-model="selectedUser" ng-change="SetSelectUser(selectedUser)">
+            <option value="" disabled selected>Select user</option>
+            <option ng-repeat="user in users" value="{{user.ssn}}" ng-disabled="user.id == currentUser.id">{{user.lastname}} {{user.firstname}}, {{user.ssn}}</option>
+        </select>
+    </div>
+</div>
+
+<div ng-include="template.form" onload="SetDisabled()"></div>

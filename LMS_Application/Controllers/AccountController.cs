@@ -74,9 +74,11 @@ namespace LMS_Application.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
-            ViewBag.ReturnUrl = returnUrl;
+            if (Request.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
 
@@ -84,12 +86,17 @@ namespace LMS_Application.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        [ValidateAngularAntiForgery]
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                Dictionary<string, string[]> errorList = ModelState.ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                );
+
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, JsonConvert.SerializeObject(errorList, Formatting.None, _jsonSettings));
             }
 
             // This doesn't count login failures towards account lockout
@@ -98,15 +105,14 @@ namespace LMS_Application.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return new HttpStatusCodeResult(HttpStatusCode.OK, "User successfully logged in");
                 case SignInStatus.LockedOut:
-                    return View("Lockout");
+                    return new HttpStatusCodeResult(HttpStatusCode.MethodNotAllowed, "User is locked out");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return new HttpStatusCodeResult(HttpStatusCode.Redirect, "Requesting verification");
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "User login failure");
             }
         }
 
@@ -167,7 +173,10 @@ namespace LMS_Application.Controllers
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
 
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, JsonConvert.SerializeObject(errorList, Formatting.None, _jsonSettings));
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                Response.StatusDescription = "";
+
+                return Json(errorList, JsonRequestBehavior.AllowGet);
             }
 
             if (_repo.CheckUserExistance(model))

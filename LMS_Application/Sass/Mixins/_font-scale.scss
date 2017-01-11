@@ -1,0 +1,13 @@
+﻿@mixin font-scale ($amount, $n)
+{
+    &.font-size
+    {
+        font-size: inherit;
+
+        @for $i from 2 to $n {
+            &-x#{$i} {
+                font-size: $amount * $i;
+            }
+        } 
+    }
+}
