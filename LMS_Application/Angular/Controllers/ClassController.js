@@ -18,6 +18,22 @@
             }
         }
 
+        // Checks form validation before posting //
+        //var removeSchoolClass = function (schoolClassId) {
+        //    if (isValid) {
+        //        if ($scope.currentPage == "remove") {
+        //            Popup.Message("Are you sure?", "You cant revert this back!", Popup.types.warning, { confirmText: "Remove", enableCancel: true }).then(function (res) {
+        //                if (res === true) {
+        //                    postForm();
+        //                }
+        //            });
+        //        }
+        //        else {
+        //            postForm();
+        //        }
+        //    }
+        //}
+
         // Remove student from school class //
         var removeFromClass = function (student) {
             var index = $scope.selectedClass.students.indexOf(student);
@@ -31,13 +47,32 @@
 
         // Set selected school class from list //
         var setSelectedClass = function (cls) {
-            $scope.selectedClass = cls;
+            angular.forEach($scope.classes, function (value, key) {
+                if (value.id == cls) {
+                    console.log("$scope.class " + $scope.class);
+                    console.log("value " + value);
+                    $scope.class.id = angular.copy(value).id;
+                    $scope.class.name = angular.copy(value).name;
+                    $scope.class.validTo = new Date(angular.copy(value).validTo.split('T')[0]);
+                    angular.forEach(document.getElementsByName("classForm")[0].querySelectorAll(toDisable), function (value, key) {
+                        value.removeAttribute("disabled");
+                    });
+                    return;
+                }
+            });
+        }
+
+        // Set input and select fields to disabled //
+        var setDisabled = function () {
+            angular.forEach(document.getElementsByName("classForm")[0].querySelectorAll("input, select, button[type=submit]"), function (value, key) {
+                value.setAttribute("disabled", true);
+            });
         }
 
         // Create new school class //
         var createNewClass = function (isValid) {
             if (isValid) {
-                var schoolClassTmp = angular.copy($scope.schoolClass);
+                var schoolClassTmp = angular.copy($scope.class);
                 schoolClassTmp.validTo = $filter('date')(schoolClassTmp.validTo, "yyyy-MM-dd");
 
                 Request.Make("/Account/GetAntiForgeryToken/", "post").then(function (token) {
@@ -87,9 +122,14 @@
             $scope.students = tmp;
         });
 
+        
+
+        // Variables //
         $scope.Add = addToClass;
         $scope.Remove = removeFromClass;
         $scope.SetSelectedClass = setSelectedClass;
+        $scope.SetDisabled = setDisabled;
+        $scope.class = {};
 
         $scope.selectedClass;
         $scope.classes = [];
@@ -101,22 +141,26 @@
             create: basePath + "/Class/_create.html",
             edit: basePath + "/Class/_edit.html",
             addstudents: basePath + "/Class/_addStudents.html",
-            remove: basePath + "/Class/_remove.html"
+            remove: basePath + "/Class/_remove.html",
+            form: basePath + "/Class/_form.html"
         };
 
         // Set form post destination //
         var sendFormTo;
+        var toDisable;
         switch ($scope.currentPage) {
             case "create":
                 sendFormTo = "/Data/CreateNewSchoolClass/";
                 $scope.submitBtnText = "Create";
                 break;
             case "edit":
-                sendFormTo = "/Data/UpdateUser/";
+                sendFormTo = "/Data/UpdateSchoolClass/";
+                toDisable = "input, select, button[type=submit]";
                 $scope.submitBtnText = "Update";
                 break;
             case "remove":
-                sendFormTo = "/Data/RemoveUser/";
+                sendFormTo = "/Data/RemoveSchoolClass/";
+                toDisable = "button[type=submit]";
                 $scope.submitBtnText = "Remove";
                 break;
         }
