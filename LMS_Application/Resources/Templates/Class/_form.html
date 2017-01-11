@@ -1,4 +1,4 @@
-﻿<form method="post" name="classForm" ng-submit="CreateNewClass(classForm.$valid)" class="row col-xs-12" novalidate autocomplete="off">
+﻿<form method="post" name="classForm" ng-submit="SendForm(classForm.$valid)" class="row col-xs-12" novalidate autocomplete="off">
     <div class="form-group col-sm-6 col-xs-12">
         <div class="input-group">
             <input type="text" class="form-control input-lg" name="name" id="name" placeholder="Class name" ng-model="class.name" ng-pattern="/^([0-9]|[a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" validate="classForm.name" required />
