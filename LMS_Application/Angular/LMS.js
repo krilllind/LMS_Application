@@ -23,6 +23,10 @@ LMSApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, 
             controller: "ScheduleController",
             templateUrl: basePath + "_manageSchedule.html"
         })
+        .when("/Manage/File/:handle?", {
+            controller: "FileController",
+            templateUrl: basePath + "_file.html"
+        })
         .when("/Courses/:lessonName?", {
             controller: "CourseController",
             templateUrl: basePath + "_courses.html"
