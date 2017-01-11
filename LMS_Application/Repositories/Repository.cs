@@ -310,12 +310,10 @@ namespace LMS_Application.Repositories
         /// <returns>
         /// Returns a bool indicating success or notdd
         /// </returns>
-        public async Task<bool> UpdateSchoolClassAsync(SchoolClassModels schoolClass)
+        public bool UpdateSchoolClass(SchoolClassModels schoolClass)
         {
-            SchoolClassModels tmp = await _context.SchoolClasses.SingleAsync(o => o.SchoolClassID == schoolClass.SchoolClassID);
-
             _context.Entry(schoolClass).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return _context.SchoolClasses.Where(o => o.SchoolClassID == schoolClass.SchoolClassID).Any();
         }
