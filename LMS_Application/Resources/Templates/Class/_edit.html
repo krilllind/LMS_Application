@@ -1,2 +1,12 @@
 ﻿<h4 class="col-xs-12">Edit class</h4>
 
+<div class="form-group col-sm-6 col-xs-12 margin-top-bottom">
+    <div class="input-group">
+        <select class="form-control input-lg" ng-model="selectedClass" ng-change="SetSelectedClass(selectedClass)">
+            <option value="" disabled selected>Select School class</option>
+            <option ng-repeat="class in classes" value="{{class.id}}">{{class.name}}</option>
+        </select>
+    </div>
+</div>
+
+<div ng-include="template.form"></div>
