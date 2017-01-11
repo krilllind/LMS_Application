@@ -1,23 +1,20 @@
 ﻿<h4 class="col-xs-12">Upload new file(s)</h4>
 
-<form method="post" name="fileForm" ng-submit="SendForm(fileForm.$valid)" class="row col-xs-12" novalidate autocomplete="off">
-    <div class="form-group col-sm-6 col-xs-12">
-        <div class="input-group">
-            <input type="file" class="form-control input-lg" name="file" id="file" placeholder="File(s)" ng-model="file" required />
-            <div class="input-group-addon">
-                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
-                <div class="help-block info" ng-messages="registerForm.firstname.$error">
-                    <div ng-message="required">Firstname is required.</div>
-                    <div ng-message="valueUsed">{{fileForm.valueUsedMessage}}</div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="col-xs-6 col-xs-offset-3 dnd-wrapper box" id="fileUploadDrop" file-dnd ng-model="dndModel">
+    <span class="dashing-border"><i></i></span>
+    <span class="dashing-border"><i></i></span>
+    <span class="dashing-border"><i></i></span>
+    <span class="dashing-border"><i></i></span>
 
-    <div class="form-group col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
-        <button type="submit" class="col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
-            <i class="fa fa-paper-plane-o fa-lg" aria-hidden="true"></i>
-            <span>{{submitBtnText}}</span>
-        </button>
+    <div class="dnd-zone">
+        <div class="dnd-textarea">
+            <span class="bgtext-select-file">Drop files here</span>
+            <span class="bgtext-select-file">or</span>
+            <button class="btn-select-file">
+                <i class="fa fa-upload transition" aria-hidden="true"></i>
+                <span>Select file</span>
+            </button>
+        </div>
+
     </div>
-</form>
+</div>
