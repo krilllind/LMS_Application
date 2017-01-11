@@ -1,0 +1,35 @@
+﻿<form method="post" name="classForm" ng-submit="CreateNewClass(classForm.$valid)" class="row col-xs-12" novalidate autocomplete="off">
+    <div class="form-group col-sm-6 col-xs-12">
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="name" id="name" placeholder="Class name" ng-model="class.name" ng-pattern="/^([0-9]|[a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" validate="classForm.name" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="classForm.name.$error">
+                    <div ng-message="required">Name is required.</div>
+                    <div ng-message="pattern">Name can only contain characters A-Ö and numbers 0-9.</div>
+                    <div ng-message="valueUsed">{{classForm.name.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <div class="input-group">
+            <input type="date" class="form-control input-lg" name="validTo" id="validTo" placeholder="School class valid untill" ng-model="class.validTo" min="{{dateToday | date: "yyyy-MM-dd"}}" validate="classForm.validTo" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="classForm.validTo.$error">
+                    <div ng-message="required">Date is required.</div>
+                    <div ng-message="valueUsed">{{classForm.validTo.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
+        <button type="submit" class="col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
+            <i class="fa fa-paper-plane-o fa-lg" aria-hidden="true"></i>
+            <span>{{submitBtnText}}</span>
+        </button>
+    </div>
+</form>
