@@ -221,6 +221,7 @@
     <Content Include="Resources\Templates\Class\_create.html" />
     <Content Include="Resources\Templates\Class\_form.html" />
     <Content Include="Resources\Templates\Class\_remove.html" />
+    <Content Include="Resources\Templates\File\_upload.html" />
     <Content Include="Resources\Templates\Schedule\_create.html" />
     <Content Include="Resources\Templates\Schedule\_edit.html" />
     <Content Include="Resources\Templates\Schedule\_remove.html" />
@@ -232,6 +233,7 @@
     <Content Include="Resources\Templates\_404.html" />
     <Content Include="Resources\Templates\_class.html" />
     <Content Include="Resources\Templates\_courses.html" />
+    <Content Include="Resources\Templates\_file.html" />
     <Content Include="Resources\Templates\_fileUpload.html" />
     <Content Include="Resources\Templates\_manageSchedule.html" />
     <Content Include="Resources\Templates\_adminNavigation.html" />
