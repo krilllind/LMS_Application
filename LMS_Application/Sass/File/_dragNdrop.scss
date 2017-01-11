@@ -1,0 +1,16 @@
+﻿.box__dragndrop,
+.box__uploading,
+.box__success,
+.box__error {
+  display: none;
+}
+
+.dropzone {
+  width: 250px;
+  height: 45px;
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 30px;
+  margin: 20px;
+  font-family: Arial;
+}
