@@ -282,5 +282,42 @@ namespace LMS_Application.Repositories
 
             return !(_context.Users.Where(o => o.SSN == user.SSN).Any());
         }
+
+        /// <summary>
+        /// Removes a school class from the database
+        /// </summary>
+        /// <param name="schoolClass">
+        /// School class to remove
+        /// </param>
+        /// <returns>
+        /// Returns a bool indicating success or not
+        /// </returns>
+        public async Task<bool> RemoveSchoolClassByIdAsync(SchoolClassModels schoolClass)
+        {
+            SchoolClassModels c = await _context.SchoolClasses.SingleAsync(o => o.SchoolClassID == schoolClass.SchoolClassID);
+            _context.SchoolClasses.Remove(c);
+            await _context.SaveChangesAsync();
+
+            return !(_context.SchoolClasses.Where(o => o.SchoolClassID == schoolClass.SchoolClassID).Any());   
+        }
+
+        /// <summary>
+        /// Updates a school class in the database
+        /// </summary>
+        /// <param name="schoolClass">
+        /// School class to update
+        /// </param>
+        /// <returns>
+        /// Returns a bool indicating success or notdd
+        /// </returns>
+        public async Task<bool> UpdateSchoolClassAsync(SchoolClassModels schoolClass)
+        {
+            SchoolClassModels tmp = await _context.SchoolClasses.SingleAsync(o => o.SchoolClassID == schoolClass.SchoolClassID);
+
+            _context.Entry(schoolClass).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return _context.SchoolClasses.Where(o => o.SchoolClassID == schoolClass.SchoolClassID).Any();
+        }
     }
 }
