@@ -26,8 +26,8 @@
             if (TYPE == "post")
                 PARAMS = {};
 
-            HEADERS = HEADERS || null;
-            ENCTYPE = ENCTYPE || "application/x-www-form-urlencoded";
+            HEADERS = HEADERS || { "Content-Type": "application/x-www-form-urlencoded" };
+            ENCTYPE = ENCTYPE || null;
 
             if (!TO) {
                 OnError({
