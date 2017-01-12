@@ -35,7 +35,14 @@ namespace LMS_Application.Controllers
         [HttpPost]
         public ActionResult UploadFiles()
         {
-            System.Web.HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
+            HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
+
+            for (int i = 0; i < hfc.Count; i++)
+            {
+                HttpPostedFile hpf = hfc[i];
+
+            }
+
             _repo.UploadFiles(hfc, Server.MapPath("~/Resources/Tmp/"));
             return View();
         }
