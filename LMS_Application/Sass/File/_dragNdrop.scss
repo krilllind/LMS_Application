@@ -24,6 +24,11 @@
         &-sixteenth { &:after { padding-top: ($height / 16); } }
     }
 
+    .dnd-upload
+    {
+        display: none;
+    }
+
     .dashing-border
     {
         display: block;
@@ -91,9 +96,23 @@
                 border: 0;
                 cursor: pointer;
 
-                &:hover .fa
+                transition: color 0.15s ease-in-out, background 0.15s ease-in-out;
+                -webkit-transition: color 0.15s ease-in-out, background 0.15s ease-in-out;
+
+                &:not(:disabled):hover .fa
                 {
                     transform: translateY(-2px);
+                }
+
+                &:disabled
+                {
+                    color: $text-color-dark;
+                    background: $border-color-default;
+
+                    .fa
+                    {
+                        color: $text-color-dark;
+                    }
                 }
             }
 
@@ -113,6 +132,16 @@
         .dnd-zone .dnd-textarea
         {
             color: $text-color-dark;
+        }
+    }
+
+    &.no-drop
+    {
+        cursor: no-drop !important;
+
+        .dashing-border i
+        {
+            border-color: $warning-color;
         }
     }
 }
