@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var FileController = function ($scope, Request) {
+    var FileController = function ($scope, Request, Popup, $filter, $routeParams) {
 
         var displayImage = function (filename) {
             Request.Make("/File/GetUrlByFilename/", "get", filename).then(function (res) {
@@ -29,6 +29,36 @@
             });
         }
 
+        // Get current subpage //
+        $scope.currentPage = ($routeParams.handle || "upload").toLowerCase();
+        $scope.template = {
+            upload: basePath + "/File/_upload.html",
+            download: basePath + "/File/_download.html",
+            edit: basePath + "/File/_edit.html",
+            remove: basePath + "/File/_remove.html"
+        };
+
+        // Set form post destination //
+        var sendFormTo;
+        switch ($scope.currentPage) {
+            case "upload":
+                sendFormTo = "/File/UploadFiles/";
+                $scope.submitBtnText = "Upload";
+                break;
+            case "download":
+                sendFormTo = "/File/DownloadFiles/";
+                $scope.submitBtnText = "Download";
+                break;
+            case "edit":
+                sendFormTo = "File/UpdateFile/";
+                $scope.submitBtnText = "Update";
+                break;
+            case "remove":
+                sendFormTo = "/File/RemoveFile/";
+                $scope.submitBtnText = "Remove";
+                break;
+        }
+
         $scope.AllFileNames = allFileNames;
         $scope.DisplayImage = displayImage;
         $scope.UploadFile = uploadFile;
@@ -38,8 +68,11 @@
     }
 
     LMSApp.controller('FileController', [
-        '$scope',
-        'Request',
+        "$scope",
+        "Request",
+        "Popup",
+        "$filter",
+        "$routeParams",
         FileController
     ]);
 

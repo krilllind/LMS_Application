@@ -8,12 +8,12 @@
                 if ($scope.currentPage == "remove") {
                     Popup.Message("Are you sure?", "You cant revert this back!", Popup.types.warning, { confirmText: "Remove", enableCancel: true }).then(function (res) {
                         if (res === true) {
-                            postForm();
+                            PostForm();
                         }
                     });
                 }
                 else {
-                    postForm();
+                    PostForm();
                 }
             }
             else {
@@ -29,7 +29,7 @@
         }
 
         // Post form //
-        function postForm() {
+        function PostForm() {
             Request.Make("/Account/GetAntiForgeryToken/", "post").then(function (token) {
                 Request.Make(sendFormTo, "post", JSON.stringify($scope.user), null, { 'RequestVerificationToken': token.data }).then(function (res) {
                     if (res.status.error) {

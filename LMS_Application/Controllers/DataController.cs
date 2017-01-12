@@ -49,7 +49,7 @@ namespace LMS_Application.Controllers
             foreach (var SchoolClass in SchoolClasses)
             {
                 tmp.Add(new {
-                    ID = SchoolClass.SchoolClassID,
+                    SchoolClassID = SchoolClass.SchoolClassID,
                     Name = SchoolClass.Name,
                     ValidTo = SchoolClass.ValidTo,
                     Students = SchoolClass.Students
@@ -70,7 +70,7 @@ namespace LMS_Application.Controllers
                 var rolesForUser = await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().GetRolesAsync(user.Id);
 
                 tmp.Add(new {
-                    Id = user.Id,
+                    ID = user.Id,
                     Firstname = user.Firstname,
                     Lastname = user.Lastname,
                     SSN = user.SSN,
@@ -119,9 +119,9 @@ namespace LMS_Application.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateSchoolClass(SchoolClassModels schoolClass)
+        public ActionResult UpdateSchoolClass(SchoolClassModels schoolClass)
         {
-            bool isUpdated = await _repo.UpdateSchoolClassAsync(schoolClass);
+            bool isUpdated = _repo.UpdateSchoolClass(schoolClass);
 
             if (isUpdated)
                 return new HttpStatusCodeResult(HttpStatusCode.OK, "School class successfully updated");

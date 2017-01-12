@@ -1,21 +1,39 @@
 ﻿(function () {
 
-    var FR = function () {
+    var fileDnd = function () {
 
-        var load = function (scope, element, attributes) {
-            element.bind("change", function (changeEvent) {
-                scope.filereader = changeEvent.target.files;
+        var bind = function (scope, element, attributes, ctrl) {
+            console.log("hej");
+
+            element.on('dragover, dragenter', function (e) {
+                console.log(e);
+
+                e.preventDefault();
+                e.stopPropagation();
             });
+
+            //element.on('drop', function (e) {
+            //    e.preventDefault();
+            //    e.stopPropagation();
+
+            //    if (e.originalEvent.dataTransfer) {
+            //        if (e.originalEvent.dataTransfer.files.length > 0) {
+            //            ctrl.fileDnd = e.originalEvent.dataTransfer.files;
+            //            console.log(ctrl.fileDnd);
+            //        }
+            //    }
+
+            //    return false;
+            //});
         }
 
         return {
-            scope: {
-                filereader: "="
-            },
-            link: load
+            restrict: "E",
+            require: "ngModel",
+            link: bind
         };
     }
 
-    LMSApp.directive("filereader", [FR]);
+    LMSApp.directive("fileDnd", [fileDnd]);
 
 }());

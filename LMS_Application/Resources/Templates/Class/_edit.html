@@ -4,7 +4,7 @@
     <div class="input-group">
         <select class="form-control input-lg" ng-model="selectedClass" ng-change="SetSelectedClass(selectedClass)">
             <option value="" disabled selected>Select School class</option>
-            <option ng-repeat="class in classes" value="{{class.id}}">{{class.name}}</option>
+            <option ng-repeat="class in classes" value="{{class.schoolClassID}}">{{class.name}}</option>
         </select>
     </div>
 </div>

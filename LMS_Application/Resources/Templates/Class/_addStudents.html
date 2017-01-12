@@ -2,40 +2,51 @@
 
 <div class="col-xs-12">
     <div class="col-sm-5 col-xs-12 image-wrapper box-border">
-        <h5 class="col-xs-12">Classes</h5>
+        <div class="fixed">
+            <h5 class="col-xs-12">Classes</h5>
 
-        <div class="col-xs-12">
-            <ul class="col-xs-12 select-list margin-top-bottom">
-                <li class="col-xs-12" ng-repeat="class in classes" ng-click="SetSelectedClass(class)" ng-class="{ 'active' : class.name == selectedClass.name }" title="Select class">{{class.name}} <span class="pull-right" ng-if="class.students.length > 0">{{class.students.length}} student(s)</span></li>
-            </ul>
+            <div class="col-xs-12 margin-top-bottom">
+                <ul class="col-xs-12 select-list">
+                    <li class="col-xs-12" ng-repeat="class in classes" ng-click="SetSelectedClass(class.schoolClassID)" ng-class="{ 'active' : class.name == selectedClass.name }" title="Select class">
+                        <span>{{class.name}}</span>
+                        <span class="pull-right" ng-if="class.students.length > 0">{{class.students.length}} student(s)</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div class="col-sm-5 col-sm-offset-2 col-xs-12 col-xs-offset-0 image-wrapper box-border">
-        <h5 class="col-xs-12">Students</h5>
+    <div class="col-sm-5 col-sm-offset-2 col-xs-12 col-xs-offset-0 image-wrapper box-border ">
+        <div class="fixed">
+            <h5 class="col-xs-12">Students</h5>
 
-        <div class="col-xs-12">
-            <ul class="col-xs-12 select-list margin-top-bottom">
-                <li ng-repeat="student in students" ng-click="Add(student)" title="Add {{student.firstname}} to class {{selectedClass.name}}">{{student.lastname}} {{student.firstname}}, {{student.ssn}}</li>
-            </ul>
+            <div class="col-xs-12 margin-top-bottom">
+                <ul class="col-xs-12 select-list">
+                    <li ng-repeat="student in students" ng-click="Add(student)" title="Add {{student.firstname}} to class {{selectedClass.name}}">
+                        <span>{{student.lastname}} {{student.firstname}}, {{student.ssn}}</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="col-xs-12">
-    <div class="col-xs-12 box-border" style="margin-top:50px;height:300px;">
-        <h5 class="col-xs-12">Students in class</h5>
+    <div class="col-xs-12 image-wrapper-quarter box-border" style="margin-top:50px">
+        <div class="fixed">
+            <h5 class="col-xs-12">Students in class</h5>
 
-        <div class="col-xs-12">
-            <ul class="col-xs-12 select-list margin-top-bottom">
-                <li ng-repeat="student in selectedClass.students" class="col-xs-12 no-hover">
-                    <div class="col-xs-10">{{student.firstname}} {{student.lastname}}, {{student.ssn}}</div>
-                    <div class="col-xs-2 action" ng-click="Remove(student)" title="Remove {{student.firstname}} from class {{selectedClass.name}}">
-                        <i class="fa fa-trash text-danger transition" aria-hidden="true"></i>
-                        <span class="text-danger">Remove</span>
-                    </div>
-                </li>
-            </ul>
+            <div class="col-xs-12">
+                <ul class="col-xs-12 select-list margin-top-bottom">
+                    <li ng-repeat="student in selectedClass.students" class="col-xs-12 no-hover">
+                        <div class="col-xs-10">{{student.firstname}} {{student.lastname}}, {{student.ssn}}</div>
+                        <div class="col-xs-2 action" ng-click="Remove(student)" title="Remove {{student.firstname}} from class {{selectedClass.name}}">
+                            <i class="fa fa-trash text-danger transition" aria-hidden="true"></i>
+                            <span class="text-danger">Remove</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

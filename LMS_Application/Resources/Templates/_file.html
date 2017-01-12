@@ -1,0 +1,10 @@
+﻿<div class="theme-dark">
+    <ul class="nav nav-tabs">
+        <li role="presentation" ng-class="{'active' : currentPage == 'upload'}"><a xref="/Manage/File/Upload/">Upload</a></li>
+        <li role="presentation" ng-class="{'active' : currentPage == 'download'}"><a xref="/Manage/File/Download/">Download</a></li>
+        <li role="presentation" ng-class="{'active' : currentPage == 'edit'}"><a xref="/Manage/File/Edit/">Edit</a></li>
+        <li role="presentation" ng-class="{'active' : currentPage == 'remove'}"><a xref="/Manage/File/Remove/">Remove</a></li>
+    </ul>
+
+    <div ng-include="template[currentPage]"></div>
+</div>
