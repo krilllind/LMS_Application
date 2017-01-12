@@ -13,14 +13,15 @@
         var uploadFile = function (files) {
             var fd = new FormData();
 
+            //fd.append("files", files);
+
+
             angular.forEach(files, function (value, key) {
                 console.log(key);
-                console.log(value);
-
-                fd.append(key, value);
+                fd.append("file" + key, value);
             });
 
-            Request.Make("/File/UploadFiles/", "post", fd).then(function (res) {
+            Request.Make("/File/UploadFiles/", "post", fd, null, { "Content-Type": undefined }, angular.identity).then(function (res) {
                 console.log(res.data);
             });
         }
