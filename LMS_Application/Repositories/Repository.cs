@@ -1,15 +1,15 @@
 ﻿using LMS_Application.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using System.Data.Entity;
 
 namespace LMS_Application.Repositories
 {
@@ -63,54 +63,75 @@ namespace LMS_Application.Repositories
         }
 
         /// <summary>
-        /// Generate blob from file and return said value
+        /// Generates a list of FileObjectModels containing blob data
         /// </summary>
-        /// <param name="filepath"></param>
-        /// <returns></returns>
-        public byte[] FileToBlob(string filepath)
+        /// <param name="files">
+        /// HttpFileCollectionBase of FormData files
+        /// </param>
+        /// <param name="userId">
+        /// The id of the associated application user
+        /// </param>
+        /// <returns>
+        /// Returns a list of FileObjectModels with blob data
+        /// </returns>
+        public async Task<List<FileObjectModels>> GenerateFileObjectFromFilesAsync(HttpFileCollectionBase files, string userId)
         {
-            //A stream of bytes that represents the binary file
-            FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
+            List<FileObjectModels> FileObjects = new List<FileObjectModels>();
 
-            //The reader reads the binary data from the file stream
-            BinaryReader reader = new BinaryReader(fs);
+            try
+            {
+                foreach (string key in files)
+                {
+                    var fileContent = files[key];
 
-            //Bytes from the binary reader stored in BlobValue array
-            byte[] BlobValue = reader.ReadBytes((int)fs.Length);
+                    if (fileContent != null && fileContent.ContentLength > 0)
+                    {
+                        var stream = fileContent.InputStream;
+                        var path = Path.Combine(HttpContext.Current.Server.MapPath("~/Resources/Temp/"), fileContent.FileName);
 
-            //Close stream
-            fs.Close();
-            //Close reader
-            reader.Close();
+                        using (var fileStream = System.IO.File.Create(path))
+                        {
+                            BinaryReader reader = new BinaryReader(fileStream);
 
-            //Return Blob
-            return BlobValue;
+                            // Bytes from the binary reader stored in BlobValue array //
+                            byte[] BlobValue = reader.ReadBytes(fileContent.ContentLength);
+
+                            reader.Close();
+                            fileStream.Close();
+
+                            FileObjects.Add(new FileObjectModels()
+                            {
+                                MIME_Type = fileContent.ContentType,
+                                Data = BlobValue,
+                                Filename = fileContent.FileName,
+                                UserID = userId,
+
+                            });
+
+                            // Remove temp file //
+                            System.IO.File.Delete(path);
+                        }
+                    }
+                }
+            }
+            catch (Exception) {}
+
+            return FileObjects;
         }
 
         /// <summary>
-        /// Convert file to blob, generate a FileObjectmodel and add to database
+        /// Upload files to database
         /// </summary>
-        /// <param name="files"></param>
-        /// <param name="mapPath"></param>
-        public void UploadFiles(HttpFileCollection files, string mapPath)
+        /// <param name="files">
+        /// List of files to upload
+        /// </param>
+        /// <returns>
+        /// void
+        /// </returns>
+        public async Task UploadFilesAsync(List<FileObjectModels> files)
         {
-            for (int i = 0; i < files.Count; i++)
-            {
-                //Get file, filename and path
-                var file = files[i];
-                string fileName = Path.GetFileName(file.FileName);
-                string path = Path.Combine(mapPath, fileName);
-                file.SaveAs(path);
-
-                //Get Blob value from file via filepath
-                byte[] bytes = FileToBlob(path);
-
-                //Check if file exists in database
-                DataExists(bytes, fileName, file.ContentType);
-
-                //If there is a file in the temp folder, remove it
-                DeleteFile(mapPath + fileName);
-            }
+            _context.FilesObjects.AddRange(files);
+            await _context.SaveChangesAsync();
         }
 
         /// <summary>

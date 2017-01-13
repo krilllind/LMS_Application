@@ -2,35 +2,60 @@
 
     var fileDnd = function () {
 
-        var bind = function (scope, element, attributes, ctrl) {
-            console.log("hej");
-
-            element.on('dragover, dragenter', function (e) {
-                console.log(e);
-
+        var Link = function (scope, element, attributes, ctrl) {
+            var onDragOver = function (e) {
                 e.preventDefault();
-                e.stopPropagation();
-            });
 
-            //element.on('drop', function (e) {
-            //    e.preventDefault();
-            //    e.stopPropagation();
+                try {
+                    if (containsFiles(e))
+                        element.addClass("play");
+                    else
+                        setNoDrop(e);
+                }
+                catch (err) {
+                    setNoDrop(e);
+                };
+            };
 
-            //    if (e.originalEvent.dataTransfer) {
-            //        if (e.originalEvent.dataTransfer.files.length > 0) {
-            //            ctrl.fileDnd = e.originalEvent.dataTransfer.files;
-            //            console.log(ctrl.fileDnd);
-            //        }
-            //    }
+            var onDragEnd = function (e) {
+                e.preventDefault();
+                element.removeClass("play");
+                element.removeClass("no-drop");
+                angular.element(element[0].querySelector('.btn-select-file')).eq(0).removeAttr("disabled");
+            };
 
-            //    return false;
-            //});
+            var onDrop = function (e) {
+                onDragEnd(e);
+                scope.UploadFile(e.dataTransfer.files);
+            }
+
+            function setNoDrop(e) {
+                e.dataTransfer.dropEffect = "none";
+                e.dataTransfer.effectAllowed = "none";
+                element.addClass("no-drop");
+                angular.element(element[0].querySelector('.btn-select-file')).eq(0).attr("disabled", true);
+            }
+
+            function containsFiles(event) {
+                if (event.dataTransfer.types) {
+                    for (var i = 0; i < event.dataTransfer.types.length; i++) {
+                        if (event.dataTransfer.types[i] == "Files") {
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            }
+
+            element.bind("dragover", onDragOver)
+                  .bind("dragleave", onDragEnd)
+                  .bind("drop", onDrop);
         }
 
         return {
-            restrict: "E",
-            require: "ngModel",
-            link: bind
+            restrict: "AE",
+            link: Link
         };
     }
 

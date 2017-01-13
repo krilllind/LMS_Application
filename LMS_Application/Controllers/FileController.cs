@@ -1,10 +1,11 @@
 ﻿using LMS_Application.Models;
-using System;
+using LMS_Application.Repositories;
+using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using LMS_Application.Repositories;
 
 namespace LMS_Application.Controllers
 {
@@ -12,12 +13,10 @@ namespace LMS_Application.Controllers
     public class FileController : Controller
     {
         private Repository _repo;
-        private ApplicationDbContext _context;
 
         public FileController()
         {
             this._repo = new Repository();
-            this._context = new ApplicationDbContext();
         }
 
         [HttpGet]
@@ -33,20 +32,16 @@ namespace LMS_Application.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadFiles()
+        public async Task<ActionResult> UploadFiles()
         {
-            System.Web.HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
-            _repo.UploadFiles(hfc, Server.MapPath("~/Resources/Tmp/"));
-            return View();
-        }
+            List<FileObjectModels> FileObjects = await _repo.GenerateFileObjectFromFilesAsync(Request.Files, User.Identity.GetUserId());
 
-        public ActionResult DownloadFile(string fileName)
-        {
-            //Retrieve file with corrisponding filename
-            var file = _context.FilesObjects.Where(f => f.Filename == fileName).First();
+            if(FileObjects.Any())
+            {
+                await _repo.UploadFilesAsync(FileObjects);
+            }
 
-            //Return file
-            return File(file.Data, file.MIME_Type, file.Filename);
+            return new HttpStatusCodeResult(HttpStatusCode.OK, "File successfully uploaded");
         }
     }
 }

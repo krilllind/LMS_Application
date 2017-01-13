@@ -14,12 +14,6 @@ namespace LMS_Application.Models
         [Key]
         public string ID { get; set; }
 
-        [ForeignKey("ApplicationUser")]
-        public string UserID { get; set; }
-
-        [ForeignKey("CourseModels")]
-        public string CourseID { get; set; }
-
         [Required]
         [StringLength(255, MinimumLength = 1)]
         public string Filename { get; set; }
@@ -30,6 +24,12 @@ namespace LMS_Application.Models
 
         [Required]
         public byte[] Data { get; set; }
+        
+        [Required, ForeignKey("ApplicationUser")]
+        public string UserID { get; set; }
+
+        [ForeignKey("CourseModels")]
+        public string CourseID { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
 
@@ -38,7 +38,6 @@ namespace LMS_Application.Models
         public FileObjectModels()
         {
             this.ID = Guid.NewGuid().ToString();
-            this.ApplicationUser = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(HttpContext.Current.User.Identity.GetUserId());
         }
     }
 }

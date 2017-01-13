@@ -17,7 +17,7 @@
         }
 
         // Returns the data obj from server
-        var make = function (TO, TYPE, DATA, ENCTYPE, HEADERS) {
+        var make = function (TO, TYPE, DATA, ENCTYPE, HEADERS, TRANSFORM_REQUEST) {
             TO = TO || null;
             TYPE = TYPE || null;
             DATA = DATA || null;
@@ -27,7 +27,8 @@
                 PARAMS = {};
 
             HEADERS = HEADERS || null;
-            ENCTYPE = ENCTYPE || "application/x-www-form-urlencoded";
+            ENCTYPE = ENCTYPE || null;
+            TRANSFORM_REQUEST = TRANSFORM_REQUEST || null;
 
             if (!TO) {
                 OnError({
@@ -50,7 +51,7 @@
                 params: PARAMS,
                 data: DATA,
                 headers: HEADERS,
-                transformRequest: angular.identity
+                transformRequest: TRANSFORM_REQUEST
             }).then(function (response) {
                 return {
                     data: response.data,

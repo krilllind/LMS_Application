@@ -13,12 +13,15 @@
         var uploadFile = function (files) {
             var fd = new FormData();
 
-            for (var i = 0; i < files.length; i++) {
-                console.log(files[i]);
-                fd.append(files[i].name, files[i]);
-            }
+            //fd.append("files", files);
 
-            Request.Make("/File/UploadFiles/", "post", fd).then(function (res) {
+
+            angular.forEach(files, function (value, key) {
+                console.log(key);
+                fd.append("file" + key, value);
+            });
+
+            Request.Make("/File/UploadFiles/", "post", fd, null, { "Content-Type": undefined }, angular.identity).then(function (res) {
                 console.log(res.data);
             });
         }
@@ -27,6 +30,13 @@
             Request.Make("/File/GetAllFilenames/", "get").then(function (res) {
                 console.log(res.data);
             });
+        }
+
+        var openFileExplorer = function () {
+            var fileDialog = document.getElementById("fileUploadDrop").querySelector(".dnd-upload");
+            var evt = document.createEvent("MouseEvents");
+            evt.initEvent("click", true, false);
+            fileDialog.dispatchEvent(evt);
         }
 
         // Get current subpage //
@@ -59,6 +69,7 @@
                 break;
         }
 
+        $scope.OpenFileExplorer = openFileExplorer;
         $scope.AllFileNames = allFileNames;
         $scope.DisplayImage = displayImage;
         $scope.UploadFile = uploadFile;
