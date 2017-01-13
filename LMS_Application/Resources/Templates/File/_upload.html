@@ -1,6 +1,6 @@
 ﻿<h4 class="col-xs-12">Upload new file(s)</h4>
 
-<div class="col-xs-6 col-xs-offset-3 dnd-wrapper box no-select" id="fileUploadDrop" file-dnd>
+<div class="col-xs-6 col-xs-offset-1 dnd-wrapper box no-select" id="fileUploadDrop" file-dnd>
     <span class="dashing-border"><i></i></span>
     <span class="dashing-border"><i></i></span>
     <span class="dashing-border"><i></i></span>
@@ -18,4 +18,10 @@
     </div>
 
     <input type="file" class="dnd-upload" ng-model="files" onchange="angular.element(this).scope().UploadFile(files)" multiple />
+</div>
+
+<div ng-show="blobUrl">
+    <div class="image-wrapper col-xs-6">
+        <div class="image" bg-image="blobUrl"></div>
+    </div>
 </div>

@@ -1,23 +1,21 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+﻿using LMS_Application.Filters;
+using LMS_Application.Models;
+using LMS_Application.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using LMS_Application.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
-using System.Web.Helpers;
-using LMS_Application.Repositories;
-using LMS_Application.Filters;
-using System.Web.Security;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Configuration;
+using System.Web.Helpers;
+using System.Web.Mvc;
+using System.Web.Security;
 
 namespace LMS_Application.Controllers
 {
@@ -26,14 +24,12 @@ namespace LMS_Application.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationDbContext _context;
-        private Repository _repo;
         private JsonSerializerSettings _jsonSettings;
+        private UserRepository _repo;
 
         public AccountController()
         {
-            this._context = new ApplicationDbContext();
-            this._repo = new Repository();
+            this._repo = new UserRepository();
             this._jsonSettings = new JsonSerializerSettings()
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
@@ -179,9 +175,9 @@ namespace LMS_Application.Controllers
                 return Json(errorList, JsonRequestBehavior.AllowGet);
             }
 
-            if (_repo.CheckUserExistance(model))
+            if (_repo.CheckUserExistance(model).Any())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, JsonConvert.SerializeObject(_repo.ReturnDuplicateFields(model), Formatting.None, _jsonSettings));
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, JsonConvert.SerializeObject(_repo.CheckUserExistance(model), Formatting.None, _jsonSettings));
             }
 
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Firstname = model.Firstname, Lastname = model.Lastname, SSN = model.SSN, PhoneNumber = model.PhoneNumber };

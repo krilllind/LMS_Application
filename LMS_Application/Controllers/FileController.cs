@@ -12,11 +12,11 @@ namespace LMS_Application.Controllers
     [Authorize]
     public class FileController : Controller
     {
-        private Repository _repo;
+        private DataRepository _repo;
 
         public FileController()
         {
-            this._repo = new Repository();
+            this._repo = new DataRepository();
         }
 
         [HttpGet]
@@ -34,14 +34,15 @@ namespace LMS_Application.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadFiles()
         {
-            List<FileObjectModels> FileObjects = await _repo.GenerateFileObjectFromFilesAsync(Request.Files, User.Identity.GetUserId());
+            List<FileObjectModels> FileObjects = _repo.GenerateFileObjectFromFiles(Request.Files, User.Identity.GetUserId());
 
             if(FileObjects.Any())
             {
                 await _repo.UploadFilesAsync(FileObjects);
+                return new HttpStatusCodeResult(HttpStatusCode.OK, "File successfully uploaded");
             }
-
-            return new HttpStatusCodeResult(HttpStatusCode.OK, "File successfully uploaded");
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "File failed to upload");
+            
         }
     }
 }

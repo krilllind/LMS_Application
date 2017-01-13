@@ -13,16 +13,16 @@
         var uploadFile = function (files) {
             var fd = new FormData();
 
-            //fd.append("files", files);
-
-
             angular.forEach(files, function (value, key) {
-                console.log(key);
                 fd.append("file" + key, value);
             });
 
             Request.Make("/File/UploadFiles/", "post", fd, null, { "Content-Type": undefined }, angular.identity).then(function (res) {
-                console.log(res.data);
+                if (res.status.ok) {
+                    Request.Make("/File/GetUrlByFilename/", "get", { fileName: files[0].name } ).then(function (blob) {
+                        $scope.blobUrl = blob.data;
+                    });
+                }
             });
         }
 
@@ -76,6 +76,7 @@
         $scope.FilesToUpload = [];
         $scope.buttonClicked = false;
         $scope.url = "";
+        $scope.blobUrl;
     }
 
     LMSApp.controller('FileController', [

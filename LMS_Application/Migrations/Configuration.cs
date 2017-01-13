@@ -41,7 +41,7 @@ namespace LMS_Application.Migrations
                 PhoneNumber = "0701234567",
                 Firstname = "Test",
                 Lastname = "User",
-                ProfileImage = null,
+                ProfileImageID = null,
                 SSN = "185201052663"
             };
 

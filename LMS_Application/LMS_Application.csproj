@@ -162,6 +162,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\ValidateAngularAntiForgery.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -177,6 +178,10 @@
     <Compile Include="Migrations\201701121404303_fileObjectModel_changes.cs" />
     <Compile Include="Migrations\201701121404303_fileObjectModel_changes.Designer.cs">
       <DependentUpon>201701121404303_fileObjectModel_changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701131201216_IdentityModels_ProfileImageID.cs" />
+    <Compile Include="Migrations\201701131201216_IdentityModels_ProfileImageID.Designer.cs">
+      <DependentUpon>201701131201216_IdentityModels_ProfileImageID.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -414,6 +419,7 @@
   <ItemGroup>
     <Folder Include="Angular\Filters\" />
     <Folder Include="Resources\Temp\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -431,6 +437,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701121404303_fileObjectModel_changes.resx">
       <DependentUpon>201701121404303_fileObjectModel_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701131201216_IdentityModels_ProfileImageID.resx">
+      <DependentUpon>201701131201216_IdentityModels_ProfileImageID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
