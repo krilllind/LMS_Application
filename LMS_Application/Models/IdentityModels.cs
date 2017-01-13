@@ -12,7 +12,7 @@ namespace LMS_Application.Models
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public string ProfileImage { get; set; }
+        public string ProfileImageID { get; set; }
         public string SSN { get; set; }
 
         [ForeignKey("SchoolClassModels")]
