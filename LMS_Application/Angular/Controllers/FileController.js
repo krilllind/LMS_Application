@@ -3,7 +3,7 @@
     var FileController = function ($scope, Request, Popup, $filter, $routeParams) {
 
         var displayImage = function (filename) {
-            Request.Make("/File/GetUrlByFilename/", "get", filename).then(function (res) {
+            Request.Make("/File/GenerateFileUrl/", "get", filename).then(function (res) {
                 $scope.url = res.data;
             });
 
@@ -19,11 +19,15 @@
 
             Request.Make("/File/UploadFiles/", "post", fd, null, { "Content-Type": undefined }, angular.identity).then(function (res) {
                 if (res.status.ok) {
-                    Request.Make("/File/GetUrlByFilename/", "get", { fileName: files[0].name } ).then(function (blob) {
-                        $scope.blobUrl = blob.data;
+                    angular.forEach(files, function (value, key) {
+                        Request.Make("/File/GenerateFileUrl/", "get", { fileName: value.name }).then(function (blob) {
+                            $scope.images.push(blob.data);
+                        });
                     });
                 }
             });
+
+            console.log($scope.images.length);
         }
 
         var allFileNames = function () {
@@ -69,6 +73,7 @@
                 break;
         }
 
+        $scope.images = [];
         $scope.OpenFileExplorer = openFileExplorer;
         $scope.AllFileNames = allFileNames;
         $scope.DisplayImage = displayImage;
