@@ -20,6 +20,12 @@ namespace LMS_Application.Models
 
         public DateTime SubjectEndsAt { get; set; }
 
+        public string Day { get; set; }
+
+        public string ClassRoom { get; set; }
+
+        public string Teacher { get; set; }
+
         public virtual ICollection<ScheduleModels> Schedules { get; set; }
 
         public virtual ICollection<ApplicationUser> Teachers { get; set; }
