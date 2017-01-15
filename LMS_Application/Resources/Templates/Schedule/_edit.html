@@ -1,0 +1,12 @@
+﻿<h4 class="col-xs-12">Edit course</h4>
+
+<div class="form-group col-sm-6 col-xs-12 margin-top-bottom">
+    <div class="input-group">
+        <select class="form-control input-lg" ng-model="selectedCourse" ng-change="SetSelectedCourse(selectedCourse)">
+            <option value="" disabled selected>Select course</option>
+            <option ng-repeat="course in courses" value="{{course.CourseID}}">{{course.Subject}}</option>
+        </select>
+    </div>
+</div>
+
+<div ng-include="template.form" onload="SetDisabled()"></div>

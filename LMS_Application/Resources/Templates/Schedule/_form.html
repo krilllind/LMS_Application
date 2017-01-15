@@ -1,0 +1,131 @@
+﻿<form method="post" name="courseForm" ng-submit="SendForm(courseForm.$valid)" class="row col-xs-12" novalidate autocomplete="off">
+    <div class="form-group col-sm-6 col-xs-12">
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="subject" id="subject" placeholder="Subject" ng-model="course.subject" ng-pattern="/^([0-9]|[a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" validate="courseForm.subject" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="courseForm.subject.$error">
+                    <div ng-message="required">A subject is required.</div>
+                    <div ng-message="pattern">The subject can only contain characters A-Ö and numbers 0-9.</div>
+                    <div ng-message="valueUsed">{{courseForm.name.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="courseLevel" id="subject" placeholder="Course level" ng-model="course.courseLevel" ng-pattern="/^([0-9]|[a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" validate="courseForm.courseLevel" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="courseForm.courseLevel.$error">
+                    <div ng-message="required">A subject is required.</div>
+                    <div ng-message="pattern">The subject can only contain characters A-Ö and numbers 0-9.</div>
+                    <div ng-message="valueUsed">{{courseForm.courseLevel.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <label for="subjectStartsAt">Subject start time</label>
+        <div class="input-group">
+            <input type="time" class="form-control input-lg" name="subjectStartsAt" id="subjectStartsAt" ng-model="course.subjectStartsAt" min="08:00:00" max="16:30:00" validate="courseForm.subjectStartsAt" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="courseForm.subjectStartsAt.$error">
+                    <div ng-message="required">A start time is required.</div>
+                    <div ng-message="valueUsed">{{courseForm.subjectStartsAt.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <label for="subjectEndsAt">Subject end time</label>
+        <div class="input-group">
+            <input type="time" class="form-control input-lg" name="subjectEndsAt" id="subjectEndsAt" ng-model="course.subjectEndsAt" min="08:00:00" max="16:30:00" validate="courseForm.subjectEndsAt" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="courseForm.subjectEndsAt.$error">
+                    <div ng-message="required">A start time is required.</div>
+                    <div ng-message="valueUsed">{{courseForm.subjectEndsAt.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <label for="subjectDuration">Subject duration</label>
+        <div class="input-group">
+            <input type="number" class="form-control input-lg" name="subjectDuration" id="subjectDuration" ng-model="course.subjectDuration" validate="courseForm.subjectDuration" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="courseForm.subjectDuration.$error">
+                    <div ng-message="required">A start time is required.</div>
+                    <div ng-message="valueUsed">{{courseForm.subjectDuration.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <label for="subjectDay">Day</label>
+        <div class="input-group">
+            <select name="subjectDay" class="form-control input-lg" id="subjectDay" ng-model="course.subjectDay">
+                <option selected value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select>
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="courseForm.subjectDay.$error">
+                    <div ng-message="required">The subject needs a day</div>
+                    <div ng-message="valueUsed">{{courseForm.subjectDay.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <label for="classRoom">Classroom</label>
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="classRoom" id="classRoom" placeholder="Class room" ng-model="course.classRoom" ng-pattern="/^([0-9]|[a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" validate="courseForm.classRoom" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="courseForm.classRoom.$error">
+                    <div ng-message="required">A class room is needed</div>
+                    <div ng-message="pattern">The class room name can only contain characters A-Ö and numbers 0-9.</div>
+                    <div ng-message="valueUsed">{{courseForm.classRoom.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+        <label for="classRoom">Teacher</label>
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="teacher" id="teacher" placeholder="Teacher" ng-model="course.teacher" ng-pattern="/^([0-9]|[a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" validate="courseForm.teacher" required />
+            <div class="input-group-addon">
+                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
+                <div class="help-block info" ng-messages="courseForm.teacher.$error">
+                    <div ng-message="required">The subject needs a teacher</div>
+                    <div ng-message="pattern">The teachers name can only contain characters A-Ö and numbers 0-9.</div>
+                    <div ng-message="valueUsed">{{courseForm.teacher.valueUsedMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
+        <button type="submit" class="col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
+            <i class="fa fa-paper-plane-o fa-lg" aria-hidden="true"></i>
+            <span>{{submitBtnText}}</span>
+        </button>
+    </div>
+</form>
