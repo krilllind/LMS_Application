@@ -18,9 +18,9 @@
             });
         }
 
-        Request.Make("/Data/GetUserInformation/", "get").then(function (res) {
+        Request.Make("/User/GetSignedIn/", "get").then(function (res) {
             $scope.user = res.data;
-            $scope.user.userRole = ((res.data.userRole === "Teacher") ? true : false);
+            $scope.user.userRole = ((res.data.requestedUserRole === "Teacher") ? true : false);
         });
 
         $scope.$watch("searchText", SearchFiler);
