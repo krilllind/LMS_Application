@@ -101,7 +101,12 @@ namespace LMS_Application.Repositories
         /// </returns>
         public async Task UploadFilesAsync(List<FileObjectModels> files)
         {
-            _context.FilesObjects.AddRange(files);
+            foreach(FileObjectModels file in files)
+            {
+                if (_context.FilesObjects.Where(o => o.Data == file.Data).Any())
+                    continue;
+                _context.FilesObjects.Add(file);
+            }
             await _context.SaveChangesAsync();
         }
 
