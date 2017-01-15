@@ -78,17 +78,17 @@
         }
 
         // Get all user roles //
-        Request.Make("/Data/GetAllRoleNames/", "get").then(function (res) {
+        Request.Make("/User/GetAllRoleNames/", "get").then(function (res) {
             $scope.roles = res.data;
         });
 
         // Get all users //
-        Request.Make("/Data/GetAllUsers/", "get").then(function (res) {
+        Request.Make("/User/GetAll/", "get").then(function (res) {
             $scope.users = res.data;
         });
 
         // Get this user info //
-        Request.Make("/Data/GetUserInformation/", "get").then(function (res) {
+        Request.Make("/User/GetSignedIn/", "get").then(function (res) {
             $scope.currentUser = res.data;
         });
 
