@@ -12,21 +12,21 @@ namespace LMS_Application.Controllers
     [Authorize]
     public class FileController : Controller
     {
-        private DataRepository _repo;
+        private FileRepository _repo;
 
         public FileController()
         {
-            this._repo = new DataRepository();
+            this._repo = new FileRepository();
         }
 
         [HttpGet]
-        public string GetUrlByFilename(string fileName)
+        public string GenerateFileUrl(string fileName)
         {
-            return _repo.GetUrlByFilename(fileName);
+            return _repo.GenerateFileUrl(fileName);
         }
 
         [HttpGet]
-        public string[] GetAllFilenames()
+        public List<string> GetAllFilenames()
         {
             return _repo.GetAllFilenames();
         }
@@ -43,6 +43,24 @@ namespace LMS_Application.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "File failed to upload");
             
+        }
+
+        [HttpPost]
+        public ActionResult RemoveFile()
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Failed to remove file");
+        }
+
+        [HttpGet]
+        public ActionResult DownloadFiles()
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Failed to download file");
+        }
+
+        [HttpPost]
+        public ActionResult UpdateFile()
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Failed to update file");
         }
     }
 }
