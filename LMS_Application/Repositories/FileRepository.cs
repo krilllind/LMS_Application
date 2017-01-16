@@ -40,7 +40,7 @@ namespace LMS_Application.Repositories
         public string GenerateFileUrl(string fileName)
         {
             FileObjectModels file = _context.FilesObjects.SingleOrDefault(o => o.Filename == fileName);
-            return (file != null) ? string.Format("data:{0};base64,{1}", file.ContentType, Convert.ToBase64String(file.Data)) : null;
+            return (file != null) ? string.Format("data:{0};base64,{1}", file.MIME_Type, Convert.ToBase64String(file.Data)) : null;
         }
 
         /// <summary>
@@ -64,9 +64,10 @@ namespace LMS_Application.Repositories
                 var file = files[key];
                 FileObjects.Add(new FileObjectModels()
                 {
-                    ContentType = file.ContentType,
+                    MIME_Type = file.ContentType,
                     Data = FileToBlob(file),
-                    Filename = file.FileName
+                    Filename = file.FileName,
+                    UserID = userId,
                 });
             }
 
@@ -98,20 +99,12 @@ namespace LMS_Application.Repositories
         /// <returns>
         /// void
         /// </returns>
-        public async Task UploadFilesAsync(List<FileObjectModels> files, ApplicationUser user, string courseID, bool shared = false)
+        public async Task UploadFilesAsync(List<FileObjectModels> files)
         {
             foreach(FileObjectModels file in files)
             {
                 if (_context.FilesObjects.Where(o => o.Data == file.Data).Any())
                     continue;
-                _context.FileObjectUsers.Add(new FileObjectUserModels
-                {
-                    Shared = shared,
-                    UploadedTime = DateTime.Now,
-                    FileObjectModels = file,
-                    ApplicationUser = user,
-                    CourseModels = _context.Courses.Where(o => o.CourseID == courseID).Single()
-                });
                 _context.FilesObjects.Add(file);
             }
             await _context.SaveChangesAsync();
@@ -129,11 +122,6 @@ namespace LMS_Application.Repositories
         public async Task DeleteFileAsync(string fileID)
         {
             _context.FilesObjects.Remove(await _context.FilesObjects.FindAsync(fileID));
-        }
-
-        public ApplicationUser GetCurrentUser(string userID)
-        {
-            return _context.Users.Where(o => o.Id == userID).Single();
         }
     }
 }

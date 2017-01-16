@@ -1,7 +1,6 @@
 ﻿using LMS_Application.Models;
 using LMS_Application.Repositories;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -37,11 +36,9 @@ namespace LMS_Application.Controllers
         {
             List<FileObjectModels> FileObjects = _repo.GenerateFileObjectFromFiles(Request.Files, User.Identity.GetUserId());
 
-            var fd = Request.Form;
-
             if(FileObjects.Any())
             {
-                await _repo.UploadFilesAsync(FileObjects, _repo.GetCurrentUser(User.Identity.GetUserId()), fd["CourseID"], Convert.ToBoolean(fd["Shared"]));
+                await _repo.UploadFilesAsync(FileObjects);
                 return new HttpStatusCodeResult(HttpStatusCode.OK, "File successfully uploaded");
             }
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "File failed to upload");

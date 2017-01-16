@@ -20,7 +20,6 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -173,17 +172,8 @@
     <Compile Include="Migrations\201701161457235_initial.Designer.cs">
       <DependentUpon>201701161457235_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701161943259_changes.cs" />
-    <Compile Include="Migrations\201701161943259_changes.Designer.cs">
-      <DependentUpon>201701161943259_changes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701162006514_changes1.cs" />
-    <Compile Include="Migrations\201701162006514_changes1.Designer.cs">
-      <DependentUpon>201701162006514_changes1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\FileObjectUserModels.cs" />
     <Compile Include="Models\ICourseModels.cs" />
     <Compile Include="Models\CourseModels.cs" />
     <Compile Include="Models\FileObjectModels.cs" />
@@ -433,12 +423,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701161457235_initial.resx">
       <DependentUpon>201701161457235_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701161943259_changes.resx">
-      <DependentUpon>201701161943259_changes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701162006514_changes1.resx">
-      <DependentUpon>201701162006514_changes1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

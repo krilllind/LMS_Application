@@ -12,7 +12,7 @@ namespace LMS_Application.Models
     public class FileObjectModels
     {
         [Key]
-        public string FileObjectID { get; set; }
+        public string ID { get; set; }
 
         [Required]
         [StringLength(255, MinimumLength = 1)]
@@ -20,19 +20,24 @@ namespace LMS_Application.Models
 
         [Required]
         [StringLength(100)]
-        public string ContentType { get; set; }
+        public string MIME_Type { get; set; }
 
         [Required]
         public byte[] Data { get; set; }
+        
+        [Required, ForeignKey("ApplicationUser")]
+        public string UserID { get; set; }
 
         [ForeignKey("CourseModels")]
         public string CourseID { get; set; }
 
-        public CourseModels CourseModels { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public virtual CourseModels CourseModels { get; set; }
 
         public FileObjectModels()
         {
-            this.FileObjectID = Guid.NewGuid().ToString();
+            this.ID = Guid.NewGuid().ToString();
         }
     }
 }

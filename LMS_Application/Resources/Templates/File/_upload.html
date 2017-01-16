@@ -1,23 +1,5 @@
 ﻿<h4 class="col-xs-12">Upload new file(s)</h4>
 
-<div class="form-group col-sm-6 col-xs-12 col-xs-offset-1 margin-top-bottom">
-    <div class="input-group">
-        <select class="form-control input-lg" ng-model="selectedCourse" ng-change="SetSelectedCourse(selectedCourse)">
-            <option value="" disabled selected>Select course</option>
-            <option ng-repeat="course in courses" value="{{course.courseID}}">{{course.subject}}</option>
-        </select>
-    </div>
-</div>
-<div class="form-gorup col-sm-6 col-xs-12 col-xs-offset-1 margin-top-bottom">
-    <div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="checkbox.shared" ng-change="SetShared()"> Shared
-            </label>
-        </div>
-    </div>
-</div>
-
 <div class="row">
 
     <div class="col-xs-6 col-xs-offset-1 dnd-wrapper box no-select" id="fileUploadDrop" file-dnd>

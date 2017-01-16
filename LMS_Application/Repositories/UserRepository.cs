@@ -94,7 +94,7 @@ namespace LMS_Application.Repositories
         public async Task<List<object>> GetAllUsersAsync(string roleFilter = null)
         {
             List<object> temp = new List<object>();
-            foreach (ApplicationUser user in GetUsers(roleFilter))
+            foreach (ApplicationUser user in GetUsers(roleFilter) as List<ApplicationUser>)
             {
                 var userRoles = await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().GetRolesAsync(user.Id);
 

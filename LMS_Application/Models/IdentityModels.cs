@@ -32,7 +32,6 @@ namespace LMS_Application.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<FileObjectModels> FilesObjects { get; set; }
-        public DbSet<FileObjectUserModels> FileObjectUsers { get; set; }
         public DbSet<CourseModels> Courses { get; set; }
         public DbSet<SchoolClassModels> SchoolClasses { get; set; }
 

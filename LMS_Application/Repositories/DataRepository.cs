@@ -34,17 +34,6 @@ namespace LMS_Application.Repositories
         }
 
         /// <summary>
-        /// Gets all courses from the database
-        /// </summary>
-        /// <returns>
-        /// Returns a list of CourseModels
-        /// </returns>
-        public List<CourseModels> GetAllCourses()
-        {
-            return _context.Courses.ToList();
-        }
-
-        /// <summary>
         /// Removes a school class from the database
         /// </summary>
         /// <param name="schoolClass">

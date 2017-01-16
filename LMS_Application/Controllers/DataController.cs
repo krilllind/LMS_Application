@@ -37,12 +37,6 @@ namespace LMS_Application.Controllers
             return JsonConvert.SerializeObject(_repo.GetAllSchoolClasses(), Formatting.None, _jsonSettings);
         }
 
-        [HttpGet]
-        public string GetAllCourses()
-        {
-            return JsonConvert.SerializeObject(_repo.GetAllCourses(), Formatting.None, _jsonSettings);
-        }
-
         [HttpPost]
         public ActionResult AddStudentsToClass(string classID, string[] studentSSN)
         {
@@ -92,6 +86,5 @@ namespace LMS_Application.Controllers
 
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Could not remove school class");
         }
-
     }
 }
