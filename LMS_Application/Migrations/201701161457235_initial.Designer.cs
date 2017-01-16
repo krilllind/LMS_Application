@@ -7,13 +7,13 @@ namespace LMS_Application.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class changeToSchoolClassModel_ScheduleModel : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(changeToSchoolClassModel_ScheduleModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701072135329_changeToSchoolClassModel_ScheduleModel"; }
+            get { return "201701161457235_initial"; }
         }
         
         string IMigrationMetadata.Source

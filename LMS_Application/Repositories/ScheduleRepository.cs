@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace LMS_Application.Repositories
 {
     public class ScheduleRepository
     {
+        public List<string> ValidationErrorList = new List<string>();
         private ApplicationDbContext _context;
 
         public ScheduleRepository()
@@ -29,12 +29,42 @@ namespace LMS_Application.Repositories
         /// <returns>
         /// Returns a bool value indicating success or not
         /// </returns>
-        public async Task<bool> CreateCourseAsync(CourseModels course, string userID)
+        public async Task<bool> CreateCourseAsync(CourseModels course)
         {
             _context.Courses.Add(course);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                GetErrors(_context);
+            }
 
             return _context.Courses.Where(o => o.CourseID == course.CourseID).Any();
+        }
+
+        private void GetErrors(System.Data.Entity.DbContext context)
+        {
+
+          IEnumerable<System.Data.Entity.Validation.DbEntityValidationResult> ve;
+
+          ve = context.GetValidationErrors();
+          ValidationErrorList.Clear();
+
+          foreach (var vr in ve)
+          {
+            if (vr.IsValid == false)
+            {
+              foreach (var e in vr.ValidationErrors)
+              {
+                var errorMessage = e.PropertyName.Trim() + " : " +
+                                   e.ErrorMessage;
+                ValidationErrorList.Add(errorMessage);
+              }
+            }
+          }
         }
 
         /// <summary>
@@ -49,7 +79,7 @@ namespace LMS_Application.Repositories
         /// <returns>
         /// Returns a bool value indicating success or not
         /// </returns>
-        public bool UpdateCourse(CourseModels course, string userID)
+        public bool UpdateCourse(CourseModels course)
         {
             _context.Entry(course).State = EntityState.Modified;
             _context.SaveChanges();
@@ -69,7 +99,7 @@ namespace LMS_Application.Repositories
         /// <returns>
         /// Returns a bool value indicating success or not
         /// </returns>
-        public async Task<bool> RemoveCourseAsync(CourseModels course, string userID)
+        public async Task<bool> RemoveCourseAsync(CourseModels course)
         {
             CourseModels c = await _context.Courses.SingleAsync(o => o.CourseID == course.CourseID);
             _context.Courses.Remove(c);
@@ -78,5 +108,14 @@ namespace LMS_Application.Repositories
             return !(_context.Courses.Where(o => o.CourseID == course.CourseID).Any());
         }
 
+
+        /// <summary>
+        /// Gets all courses
+        /// </summary>
+        /// <returns>
+        /// Ruturns an IEnumerable of type ICourseModels
+        /// </returns>
+        public List<CourseModels> GetAll()
+            { return _context.Courses.ToList(); }
     }
 }

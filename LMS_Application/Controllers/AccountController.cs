@@ -421,6 +421,7 @@ namespace LMS_Application.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);

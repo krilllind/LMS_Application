@@ -1,4 +1,4 @@
-﻿<form method="post" name="courseForm" ng-submit="SendForm(courseForm.$valid)" class="row col-xs-12" novalidate autocomplete="off">
+﻿<form method="post" id="courseForm" ng-model="courseForm" name="courseForm" ng-submit="SendForm(courseForm.$valid)" class="row col-xs-12" novalidate autocomplete="off">
     <div class="form-group col-sm-6 col-xs-12">
         <div class="input-group">
             <input type="text" class="form-control input-lg" name="subject" id="subject" placeholder="Subject" ng-model="course.subject" ng-pattern="/^([0-9]|[a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" validate="courseForm.subject" required />
@@ -7,7 +7,7 @@
                 <div class="help-block info" ng-messages="courseForm.subject.$error">
                     <div ng-message="required">A subject is required.</div>
                     <div ng-message="pattern">The subject can only contain characters A-Ö and numbers 0-9.</div>
-                    <div ng-message="valueUsed">{{courseForm.name.valueUsedMessage}}</div>
+                    <div ng-message="valueUsed">{{courseForm.subject.valueUsedMessage}}</div>
                 </div>
             </div>
         </div>
@@ -31,12 +31,12 @@
     <div class="form-group col-sm-6 col-xs-12">
         <label for="subjectStartsAt">Subject start time</label>
         <div class="input-group">
-            <input type="time" class="form-control input-lg" name="subjectStartsAt" id="subjectStartsAt" ng-model="course.subjectStartsAt" min="08:00:00" max="16:30:00" validate="courseForm.subjectStartsAt" required />
+            <input type="time" class="form-control input-lg" name="from" id="from" ng-model="course.from" min="08:00:00" max="16:30:00" validate="courseForm.from" required />
             <div class="input-group-addon">
                 <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
-                <div class="help-block info" ng-messages="courseForm.subjectStartsAt.$error">
+                <div class="help-block info" ng-messages="courseForm.from.$error">
                     <div ng-message="required">A start time is required.</div>
-                    <div ng-message="valueUsed">{{courseForm.subjectStartsAt.valueUsedMessage}}</div>
+                    <div ng-message="valueUsed">{{courseForm.from.valueUsedMessage}}</div>
                 </div>
             </div>
         </div>
@@ -45,26 +45,12 @@
     <div class="form-group col-sm-6 col-xs-12">
         <label for="subjectEndsAt">Subject end time</label>
         <div class="input-group">
-            <input type="time" class="form-control input-lg" name="subjectEndsAt" id="subjectEndsAt" ng-model="course.subjectEndsAt" min="08:00:00" max="16:30:00" validate="courseForm.subjectEndsAt" required />
+            <input type="time" class="form-control input-lg" name="to" id="to" ng-model="course.to" min="08:00:00" max="16:30:00" validate="courseForm.to" required />
             <div class="input-group-addon">
                 <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
-                <div class="help-block info" ng-messages="courseForm.subjectEndsAt.$error">
+                <div class="help-block info" ng-messages="courseForm.to.$error">
                     <div ng-message="required">A start time is required.</div>
-                    <div ng-message="valueUsed">{{courseForm.subjectEndsAt.valueUsedMessage}}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group col-sm-6 col-xs-12">
-        <label for="subjectDuration">Subject duration</label>
-        <div class="input-group">
-            <input type="number" class="form-control input-lg" name="subjectDuration" id="subjectDuration" ng-model="course.subjectDuration" validate="courseForm.subjectDuration" required />
-            <div class="input-group-addon">
-                <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
-                <div class="help-block info" ng-messages="courseForm.subjectDuration.$error">
-                    <div ng-message="required">A start time is required.</div>
-                    <div ng-message="valueUsed">{{courseForm.subjectDuration.valueUsedMessage}}</div>
+                    <div ng-message="valueUsed">{{courseForm.to.valueUsedMessage}}</div>
                 </div>
             </div>
         </div>
@@ -73,7 +59,7 @@
     <div class="form-group col-sm-6 col-xs-12">
         <label for="subjectDay">Day</label>
         <div class="input-group">
-            <select name="subjectDay" class="form-control input-lg" id="subjectDay" ng-model="course.subjectDay">
+            <select name="subjectDay" class="form-control input-lg" id="subjectDay" ng-model="course.day">
                 <option selected value="Monday">Monday</option>
                 <option value="Tuesday">Tuesday</option>
                 <option value="Wednesday">Wednesday</option>
@@ -84,9 +70,9 @@
             </select>
             <div class="input-group-addon">
                 <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
-                <div class="help-block info" ng-messages="courseForm.subjectDay.$error">
+                <div class="help-block info" ng-messages="courseForm.day.$error">
                     <div ng-message="required">The subject needs a day</div>
-                    <div ng-message="valueUsed">{{courseForm.subjectDay.valueUsedMessage}}</div>
+                    <div ng-message="valueUsed">{{courseForm.day.valueUsedMessage}}</div>
                 </div>
             </div>
         </div>

@@ -33,7 +33,6 @@ namespace LMS_Application.Models
     {
         public DbSet<FileObjectModels> FilesObjects { get; set; }
         public DbSet<CourseModels> Courses { get; set; }
-        public DbSet<ScheduleModels> Schedules { get; set; }
         public DbSet<SchoolClassModels> SchoolClasses { get; set; }
 
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false) {}

@@ -1,6 +1,5 @@
 ﻿(function () {
-
-    var ScheduleController = function ($scope, Request, Schedule, $routeParams) {
+    var ScheduleController = function ($scope, Request, Schedule, Popup, $filter, $routeParams, $route) {
         var canvas = document.getElementById("ScheduleCanvas");
         var spinner = document.getElementById("canvasLoading");
 
@@ -16,7 +15,7 @@
         });
 
         // Set input and select fields to disabled //
-        var setDisabled = function () {
+        function SetDisabled() {
             angular.forEach(document.getElementsByName("courseForm")[0].querySelectorAll("input, select, button[type=submit]"), function (value, key) {
                 value.setAttribute("disabled", true);
             });
@@ -24,6 +23,7 @@
 
         // Create new school class //
         var sendForm = function (isValid) {
+            console.log("sendForm");
             if (isValid) {
                 if ($scope.currentPage == "remove") {
                     Popup.Message("Are you sure?", "You cant revert this back!", Popup.types.warning, { confirmText: "Remove", enableCancel: true }).then(function (res) {
@@ -43,21 +43,12 @@
 
         // Post form //
         function PostForm() {
-            var schoolClassTmp = angular.copy($scope.class);
-            schoolClassTmp.validTo = $filter('date')(schoolClassTmp.validTo, "yyyy-MM-dd");
+            var courseTmp = angular.copy($scope.course);
 
             Request.Make("/Account/GetAntiForgeryToken/", "post").then(function (token) {
-                Request.Make(sendFormTo, "post", JSON.stringify(schoolClassTmp), null, { 'RequestVerificationToken': token.data }).then(function (res) {
+                Request.Make(sendFormTo, "post", JSON.stringify(courseTmp), null, { 'RequestVerificationToken': token.data }).then(function (res) {
                     if (res.status.error) {
-                        var fields = JSON.parse(res.message);
-                        delete fields["$id"];
-
-                        angular.forEach(fields, function (value, key) {
-                            if (value.length != 0) {
-                                $scope.registerForm[key].valueUsedMessage = value.join("<br>");
-                                $scope.registerForm[key].$setValidity("valueUsed", false);
-                            }
-                        });
+                        Popup.Message("Sorry!", res.message, Popup.types.error);
                     }
                     else {
                         Popup.Message("Success!", popupResponseMessage, Popup.types.ok, { timer: 5000 }).then(function (res) {
@@ -68,9 +59,23 @@
             });
         }
 
+        // Gets all classes from the server //
+        Request.Make("/Data/GetAllClasses/", "get").then(function (res) {
+            $scope.classes = res.data;
+            console.log(res.data);
+        });
+
+        // Set selected school class from list //
+        var setSelectedClass = function (id) {
+            $scope.course.schoolClassID = id;
+            console.log($scope.course);
+        }
 
         // Variables //
         $scope.course = {};
+        $scope.class = {};
+        $scope.SendForm = sendForm;
+        $scope.SetSelectedClass = setSelectedClass;
 
         // Get current subpage //
         $scope.currentPage = ($routeParams.handle || "create").toLowerCase();
@@ -111,6 +116,9 @@
         'Request',
         'Schedule',
         '$routeParams',
+        'Popup',
+        '$filter',
+        '$route',
         ScheduleController
     ]);
 

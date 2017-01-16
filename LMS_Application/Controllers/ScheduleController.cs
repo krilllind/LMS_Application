@@ -1,17 +1,11 @@
-﻿using LMS_Application.Models;
+﻿using LMS_Application.Filters;
+using LMS_Application.Models;
 using LMS_Application.Repositories;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using System.Net;
-using LMS_Application.Filters;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace LMS_Application.Controllers
 {
@@ -32,9 +26,9 @@ namespace LMS_Application.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(CourseModels course, string userID)
+        public async Task<ActionResult> Create(CourseModels course)
         {
-            bool isCreated = await _repo.CreateCourseAsync(course, userID);
+            bool isCreated = await _repo.CreateCourseAsync(course);
 
             if (isCreated)
                 return new HttpStatusCodeResult(HttpStatusCode.OK, "Course has been created");
@@ -43,9 +37,9 @@ namespace LMS_Application.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(CourseModels course, string userID)
+        public ActionResult Update(CourseModels course)
         {
-            bool isUpdated = _repo.UpdateCourse(course, userID);
+            bool isUpdated = _repo.UpdateCourse(course);
 
             if (isUpdated)
                 return new HttpStatusCodeResult(HttpStatusCode.OK, "Course has been updated.");
@@ -54,9 +48,9 @@ namespace LMS_Application.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Remove(CourseModels course, string userID)
+        public async Task<ActionResult> Remove(CourseModels course)
         {
-            bool isRemoved = await _repo.RemoveCourseAsync(course, userID);
+            bool isRemoved = await _repo.RemoveCourseAsync(course);
 
             if (isRemoved)
                 return new HttpStatusCodeResult(HttpStatusCode.OK, "Course has been removed");
@@ -68,37 +62,8 @@ namespace LMS_Application.Controllers
         [ValidateAngularAntiForgery]
         public string GetSchedule()
         {
-            List<object> test = new List<object>() {
-                new {
-                    From = "10:30",
-                    To = "12:00",
-                    Day = "Tuesday",
-                    LessonType = "English",
-                    Color = "lightblue",
-                    Teacher = "TLUG",
-                    Classroom = "C320"
-                },
-                new {
-                    From = "10:30",
-                    To = "15:20",
-                    Day = "Friday",
-                    LessonType = "Programming",
-                    Color = "pink",
-                    Teacher = "ELÖV",
-                    Classroom = "D220"
-                },
-                new {
-                    From = "08:30",
-                    To = "09:45",
-                    Day = "Monday",
-                    LessonType = "Math",
-                    Color = "lightgreen",
-                    Teacher = "POLV",
-                    Classroom = "A332"
-                }
-            };
-
-            return JsonConvert.SerializeObject(test, Formatting.None, _jsonSettings);
+            var courses = _repo.GetAll();
+            return JsonConvert.SerializeObject(courses, Formatting.None, _jsonSettings);
         }
     }
 }

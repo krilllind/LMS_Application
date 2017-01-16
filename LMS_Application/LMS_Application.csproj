@@ -162,37 +162,29 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\ValidateAngularAntiForgery.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701061855278_initial.cs" />
-    <Compile Include="Migrations\201701061855278_initial.Designer.cs">
-      <DependentUpon>201701061855278_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701072135329_changeToSchoolClassModel_ScheduleModel.cs" />
-    <Compile Include="Migrations\201701072135329_changeToSchoolClassModel_ScheduleModel.Designer.cs">
-      <DependentUpon>201701072135329_changeToSchoolClassModel_ScheduleModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701121404303_fileObjectModel_changes.cs" />
-    <Compile Include="Migrations\201701121404303_fileObjectModel_changes.Designer.cs">
-      <DependentUpon>201701121404303_fileObjectModel_changes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701131201216_IdentityModels_ProfileImageID.cs" />
-    <Compile Include="Migrations\201701131201216_IdentityModels_ProfileImageID.Designer.cs">
-      <DependentUpon>201701131201216_IdentityModels_ProfileImageID.cs</DependentUpon>
+    <Compile Include="Migrations\201701161457235_initial.cs" />
+    <Compile Include="Migrations\201701161457235_initial.Designer.cs">
+      <DependentUpon>201701161457235_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ScheduleModels.cs" />
+    <Compile Include="Models\ICourseModels.cs" />
     <Compile Include="Models\CourseModels.cs" />
     <Compile Include="Models\FileObjectModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SchoolClassModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\FileRepository.cs" />
+    <Compile Include="Repositories\DataRepository.cs" />
+    <Compile Include="Repositories\ScheduleRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +225,7 @@
     <Content Include="Resources\Templates\File\_upload.html" />
     <Content Include="Resources\Templates\Schedule\_create.html" />
     <Content Include="Resources\Templates\Schedule\_edit.html" />
+    <Content Include="Resources\Templates\Schedule\_form.html" />
     <Content Include="Resources\Templates\Schedule\_remove.html" />
     <Content Include="Resources\Templates\User\_create.html" />
     <Content Include="Resources\Templates\User\_edit.html" />
@@ -419,7 +412,6 @@
   <ItemGroup>
     <Folder Include="Angular\Filters\" />
     <Folder Include="Resources\Temp\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -429,17 +421,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701061855278_initial.resx">
-      <DependentUpon>201701061855278_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701072135329_changeToSchoolClassModel_ScheduleModel.resx">
-      <DependentUpon>201701072135329_changeToSchoolClassModel_ScheduleModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701121404303_fileObjectModel_changes.resx">
-      <DependentUpon>201701121404303_fileObjectModel_changes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701131201216_IdentityModels_ProfileImageID.resx">
-      <DependentUpon>201701131201216_IdentityModels_ProfileImageID.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701161457235_initial.resx">
+      <DependentUpon>201701161457235_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

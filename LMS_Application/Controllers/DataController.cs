@@ -34,20 +34,7 @@ namespace LMS_Application.Controllers
         [HttpGet]
         public string GetAllClasses()
         {
-            List<SchoolClassModels> SchoolClasses = _repo.GetAllSchoolClasses();
-            List<object> tmp = new List<object>();
-
-            foreach (var SchoolClass in SchoolClasses)
-            {
-                tmp.Add(new {
-                    SchoolClassID = SchoolClass.SchoolClassID,
-                    Name = SchoolClass.Name,
-                    ValidTo = SchoolClass.ValidTo,
-                    Students = SchoolClass.Students
-                });
-            }
-
-            return JsonConvert.SerializeObject(tmp, Formatting.None, _jsonSettings);
+            return JsonConvert.SerializeObject(_repo.GetAllSchoolClasses(), Formatting.None, _jsonSettings);
         }
 
         [HttpPost]
