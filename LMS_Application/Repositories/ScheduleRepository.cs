@@ -84,7 +84,9 @@ namespace LMS_Application.Repositories
         /// <returns>
         /// Ruturns an IEnumerable of type ICourseModels
         /// </returns>
-        public List<CourseModels> GetAll()
-            { return _context.Courses.ToList(); }
+        public List<CourseModels> GetAll(string schoolClassID = null)
+        {
+            return _context.Courses.Where(o => o.SchoolClassID == schoolClassID).ToList();
+        }
     }
 }
