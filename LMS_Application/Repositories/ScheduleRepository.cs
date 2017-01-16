@@ -32,39 +32,8 @@ namespace LMS_Application.Repositories
         public async Task<bool> CreateCourseAsync(CourseModels course)
         {
             _context.Courses.Add(course);
-            //await _context.SaveChangesAsync();
-            try
-            {
-                _context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                GetErrors(_context);
-            }
-
+            await _context.SaveChangesAsync();
             return _context.Courses.Where(o => o.CourseID == course.CourseID).Any();
-        }
-
-        private void GetErrors(System.Data.Entity.DbContext context)
-        {
-
-          IEnumerable<System.Data.Entity.Validation.DbEntityValidationResult> ve;
-
-          ve = context.GetValidationErrors();
-          ValidationErrorList.Clear();
-
-          foreach (var vr in ve)
-          {
-            if (vr.IsValid == false)
-            {
-              foreach (var e in vr.ValidationErrors)
-              {
-                var errorMessage = e.PropertyName.Trim() + " : " +
-                                   e.ErrorMessage;
-                ValidationErrorList.Add(errorMessage);
-              }
-            }
-          }
         }
 
         /// <summary>
