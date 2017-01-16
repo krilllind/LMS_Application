@@ -6,17 +6,21 @@
         canvas.style.opacity = 0;
 
         // Retrieve schedule //
-        Request.Make("/Account/GetAntiForgeryToken/", "get").then(function (token) {
-            Request.Make("/Schedule/GetSchedule/", "get", null, null, { 'RequestVerificationToken': token.data }).then(function (res) {
-                for (var i = 0; i < res.data.length; i++) {
-                    res.data[i].from = res.data[i].from.substr(11, 5);
-                    res.data[i].to = res.data[i].to.substr(11, 5);
-                }
-                Schedule.Initialize(canvas, 5, false, "08:00", "17:00", res.data);
-                spinner.style.opacity = 0;
-                canvas.style.opacity = 1;
+        function renderSchedule() {
+            Request.Make("/Account/GetAntiForgeryToken/", "get").then(function (token) {
+                Request.Make("/Schedule/GetSchedule/", "get", { schoolClassID: $scope.course.schoolClassID }, null, { 'RequestVerificationToken': token.data }).then(function (res) {
+                    for (var i = 0; i < res.data.length; i++) {
+                        res.data[i].from = res.data[i].from.substr(11, 5);
+                        res.data[i].to = res.data[i].to.substr(11, 5);
+                    }
+                    Schedule.Initialize(canvas, 5, false, "08:00", "17:00", res.data);
+                    spinner.style.opacity = 0;
+                    canvas.style.opacity = 1;
+                });
             });
-        });
+        }
+
+
 
         // Set input and select fields to disabled //
         function SetDisabled() {
@@ -72,7 +76,7 @@
         // Set selected school class from list //
         var setSelectedClass = function (id) {
             $scope.course.schoolClassID = id;
-            console.log($scope.course);
+            renderSchedule();
         }
 
         // Variables //
@@ -89,6 +93,9 @@
             remove: basePath + "/Schedule/_remove.html",
             form: basePath + "/Schedule/_form.html"
         };
+
+        // Render schedule //
+        renderSchedule();
 
         // Set form post destination //
         var sendFormTo;
