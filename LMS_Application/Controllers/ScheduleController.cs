@@ -60,9 +60,9 @@ namespace LMS_Application.Controllers
 
         [HttpGet]
         [ValidateAngularAntiForgery]
-        public string GetSchedule()
+        public string GetSchedule(string schoolClassID = null)
         {
-            var courses = _repo.GetAll();
+            var courses = _repo.GetAll(schoolClassID);
             return JsonConvert.SerializeObject(courses, Formatting.None, _jsonSettings);
         }
     }
