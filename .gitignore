@@ -5,6 +5,7 @@
 *.suo
 *.user
 *.sln.docstates
+*.csproj
 */_references.js
 */project.core.min.js
 */project.vendor.min.js
