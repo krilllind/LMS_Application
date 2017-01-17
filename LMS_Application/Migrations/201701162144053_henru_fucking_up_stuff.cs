@@ -3,7 +3,7 @@ namespace LMS_Application.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class henru_fucking_up_stuff : DbMigration
     {
         public override void Up()
         {
@@ -104,20 +104,36 @@ namespace LMS_Application.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.FileObjectUserModels",
+                c => new
+                    {
+                        FileObjectUserID = c.String(nullable: false, maxLength: 128),
+                        SSN = c.String(maxLength: 128),
+                        FileObjectID = c.String(maxLength: 128),
+                        CourseID = c.String(maxLength: 128),
+                        Shared = c.Boolean(nullable: false),
+                        UploadedTime = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.FileObjectUserID)
+                .ForeignKey("dbo.AspNetUsers", t => t.SSN)
+                .ForeignKey("dbo.CourseModels", t => t.CourseID)
+                .ForeignKey("dbo.FileObjectModels", t => t.FileObjectID)
+                .Index(t => t.SSN)
+                .Index(t => t.FileObjectID)
+                .Index(t => t.CourseID);
+            
+            CreateTable(
                 "dbo.FileObjectModels",
                 c => new
                     {
-                        ID = c.String(nullable: false, maxLength: 128),
+                        FileObjectID = c.String(nullable: false, maxLength: 128),
                         Filename = c.String(nullable: false, maxLength: 255),
-                        MIME_Type = c.String(nullable: false, maxLength: 100),
+                        ContentType = c.String(nullable: false, maxLength: 100),
                         Data = c.Binary(nullable: false),
-                        UserID = c.String(nullable: false, maxLength: 128),
                         CourseID = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserID, cascadeDelete: true)
+                .PrimaryKey(t => t.FileObjectID)
                 .ForeignKey("dbo.CourseModels", t => t.CourseID)
-                .Index(t => t.UserID)
                 .Index(t => t.CourseID);
             
             CreateTable(
@@ -135,8 +151,10 @@ namespace LMS_Application.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.FileObjectUserModels", "FileObjectID", "dbo.FileObjectModels");
             DropForeignKey("dbo.FileObjectModels", "CourseID", "dbo.CourseModels");
-            DropForeignKey("dbo.FileObjectModels", "UserID", "dbo.AspNetUsers");
+            DropForeignKey("dbo.FileObjectUserModels", "CourseID", "dbo.CourseModels");
+            DropForeignKey("dbo.FileObjectUserModels", "SSN", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUsers", "CourseModels_CourseID", "dbo.CourseModels");
             DropForeignKey("dbo.CourseModels", "SchoolClassID", "dbo.SchoolClassModels");
             DropForeignKey("dbo.AspNetUsers", "SchoolClassID", "dbo.SchoolClassModels");
@@ -145,7 +163,9 @@ namespace LMS_Application.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.FileObjectModels", new[] { "CourseID" });
-            DropIndex("dbo.FileObjectModels", new[] { "UserID" });
+            DropIndex("dbo.FileObjectUserModels", new[] { "CourseID" });
+            DropIndex("dbo.FileObjectUserModels", new[] { "FileObjectID" });
+            DropIndex("dbo.FileObjectUserModels", new[] { "SSN" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -156,6 +176,7 @@ namespace LMS_Application.Migrations
             DropIndex("dbo.CourseModels", new[] { "SchoolClassID" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.FileObjectModels");
+            DropTable("dbo.FileObjectUserModels");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");

@@ -76,10 +76,11 @@ namespace LMS_Application.Repositories
         /// <returns>
         /// Returns a IQueryable of ApplicationUsers
         /// </returns>
-        private IQueryable<ApplicationUser> GetUsers(string roleFilter = null)
+        private IEnumerable<ApplicationUser> GetUsers(string roleFilter = null)
         {
-            return (roleFilter == null) ? _context.Users : _context.Users
-                .Where(u => System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().IsInRole(u.Id, roleFilter));
+            return (roleFilter == null) ? _context.Users.ToList() : _context.Users
+                .ToList()
+                .Where(u => (System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().IsInRole(u.Id, roleFilter)) == true);
         }
 
         /// <summary>
@@ -91,28 +92,21 @@ namespace LMS_Application.Repositories
         /// <returns>
         /// Returns a list of ApplicationUsers
         /// </returns>
-        public async Task<List<object>> GetAllUsersAsync(string roleFilter = null)
+        public IEnumerable<object> GetAllUsers(string roleFilter = null)
         {
-            List<object> temp = new List<object>();
-            foreach (ApplicationUser user in GetUsers(roleFilter))
+            return GetUsers(roleFilter).Select(user => new
             {
-                var userRoles = await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().GetRolesAsync(user.Id);
-
-                temp.Add(new {
-                    ID = user.Id,
-                    Firstname = user.Firstname,
-                    Lastname = user.Lastname,
-                    SSN = user.SSN,
-                    ProfileImage = user.ProfileImageID ?? "http://placehold.it/100x100",
-                    UserRole = userRoles.ToList().SingleOrDefault(),
-                    Email = user.Email,
-                    PhoneNumber = user.PhoneNumber,
-                    UserName = user.UserName,
-                    SchoolClassID = user.SchoolClassID
-                });
-            }
-
-            return temp;
+                ID = user.Id,
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
+                SSN = user.SSN,
+                ProfileImage = user.ProfileImageID ?? "http://placehold.it/100x100",
+                UserRole = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().GetRoles(user.Id).SingleOrDefault(),
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                UserName = user.UserName,
+                SchoolClassID = user.SchoolClassID
+            });
         }
 
         /// <summary>

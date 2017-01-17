@@ -13,14 +13,13 @@
                         res.data[i].from = res.data[i].from.substr(11, 5);
                         res.data[i].to = res.data[i].to.substr(11, 5);
                     }
+
                     Schedule.Initialize(canvas, 5, false, "08:00", "17:00", res.data);
                     spinner.style.opacity = 0;
                     canvas.style.opacity = 1;
                 });
             });
         }
-
-
 
         // Set input and select fields to disabled //
         function SetDisabled() {
@@ -59,8 +58,9 @@
                         Popup.Message("Sorry!", res.message, Popup.types.error);
                     }
                     else {
-                        Popup.Message("Success!", popupResponseMessage, Popup.types.ok, { timer: 5000 }).then(function (res) {
-                            $route.reload();
+                        console.log(Popup);
+                        Popup.Message("Success!", popupResponseMessage, Popup.types.ok, { timer: 5000 }).then(function (info) {
+                            Schedule.AddLesson(courseTmp);
                         });
                     }
                 });
@@ -70,7 +70,6 @@
         // Gets all classes from the server //
         Request.Make("/Data/GetAllClasses/", "get").then(function (res) {
             $scope.classes = res.data;
-            console.log(res.data);
         });
 
         // Set selected school class from list //
@@ -80,7 +79,10 @@
         }
 
         // Variables //
-        $scope.course = {};
+        $scope.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        $scope.course = {
+            day: $scope.days[0]
+        };
         $scope.class = {};
         $scope.SendForm = sendForm;
         $scope.SetSelectedClass = setSelectedClass;

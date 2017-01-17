@@ -27,7 +27,6 @@
         </div>
     </div>
 
-
     <div class="form-group col-sm-6 col-xs-12">
         <label for="subjectStartsAt">Subject start time</label>
         <div class="input-group">
@@ -59,14 +58,8 @@
     <div class="form-group col-sm-6 col-xs-12">
         <label for="subjectDay">Day</label>
         <div class="input-group">
-            <select name="subjectDay" class="form-control input-lg" id="subjectDay" ng-model="course.day">
-                <option selected value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
+            <select name="subjectDay" class="form-control input-lg" id="subjectDay" ng-model="course.day" required>
+                <option ng-repeat="day in days" value="{{day}}">{{day}}</option>
             </select>
             <div class="input-group-addon">
                 <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
@@ -81,7 +74,7 @@
     <div class="form-group col-sm-6 col-xs-12">
         <label for="classRoom">Classroom</label>
         <div class="input-group">
-            <input type="text" class="form-control input-lg" name="classRoom" id="classRoom" placeholder="Class room" ng-model="course.classRoom" ng-pattern="/^([0-9]|[a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" validate="courseForm.classRoom" required />
+            <input type="text" class="form-control input-lg" name="classRoom" id="classRoom" placeholder="Classroom name" ng-model="course.classroom" ng-pattern="/^([0-9]|[a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" validate="courseForm.classRoom" required />
             <div class="input-group-addon">
                 <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
                 <div class="help-block info" ng-messages="courseForm.classRoom.$error">
@@ -96,7 +89,7 @@
     <div class="form-group col-sm-6 col-xs-12">
         <label for="classRoom">Teacher</label>
         <div class="input-group">
-            <input type="text" class="form-control input-lg" name="teacher" id="teacher" placeholder="Teacher" ng-model="course.teacher" ng-pattern="/^([0-9]|[a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" validate="courseForm.teacher" required />
+            <input type="text" class="form-control input-lg" name="teacher" id="teacher" placeholder="Teacher acronym" ng-model="course.teacher" ng-pattern="/^([0-9]|[a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|-)+$/" validate="courseForm.teacher" required />
             <div class="input-group-addon">
                 <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
                 <div class="help-block info" ng-messages="courseForm.teacher.$error">
@@ -108,7 +101,7 @@
         </div>
     </div>
 
-    <div class="form-group col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
+    <div class="form-group col-sm-6 col-xs-12 col-xs-push-0">
         <button type="submit" class="col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
             <i class="fa fa-paper-plane-o fa-lg" aria-hidden="true"></i>
             <span>{{submitBtnText}}</span>

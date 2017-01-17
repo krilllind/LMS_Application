@@ -38,9 +38,9 @@ namespace LMS_Application.Controllers
         }
 
         [HttpGet]
-        public async Task<string> GetAll(string roleFilter)
+        public string GetAll(string roleFilter)
         {
-            var users = await _repo.GetAllUsersAsync(roleFilter);
+            object[] users = _repo.GetAllUsers(roleFilter).ToArray();
             return JsonConvert.SerializeObject(users, Formatting.None, _jsonSettings);
         }
 

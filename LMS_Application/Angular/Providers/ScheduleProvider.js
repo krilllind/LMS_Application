@@ -226,6 +226,13 @@
             })();
         }
 
+        // Add lessons to the schedule //
+        var addLessons = function (lessons) {
+            angular.forEach(lessons, function (value, key) {
+                allLessons.push(value);
+            });
+        }
+
         // Initialize the canvas settings //
         var init = function (canvasObj, boardColumns, startAtSunday, dayStarts, dayEnds, lessons) {
             titles = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -291,7 +298,8 @@
             UpdateCanvasSize: setSize,
             Draw: draw,
             Clear: clear,
-            element: canvas
+            element: canvas,
+            AddLessons: addLessons
         };
     }
 

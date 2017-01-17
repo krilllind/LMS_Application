@@ -5,9 +5,9 @@
         <li role="presentation" ng-class="{'active' : currentPage == 'remove'}"><a xref="/Manage/Schedule/Remove/">Remove</a></li>
     </ul>
 
-    <div ng-include="template[currentPage]" class="col-xs-5"></div>
+    <div ng-include="template[currentPage]" class="col-xs-12"></div>
 
-    <div class="image-wrapper col-xs-5 col-xs-offset-1 margin-top-bottom">
+    <div class="image-wrapper col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
         <canvas id="ScheduleCanvas"></canvas>
         <i class="fa fa-circle-o-notch fa-spin fa-fw loading" id="canvasLoading"></i>
     </div>
