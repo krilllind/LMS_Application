@@ -88,5 +88,25 @@ namespace LMS_Application.Repositories
         {
             return _context.Courses.Where(o => o.SchoolClassID == schoolClassID).ToList();
         }
+
+        public List<CourseModels> GetAllMyCourses(string userID)
+        {
+            List<CourseModels> tmp = new List<CourseModels>();
+            List<CourseModels> courses = _context.Courses.ToList();
+            ApplicationUser user = _context.Users.Where(u => u.Id == userID).Single();
+            List<SchoolClassModels> schoolClasses = _context.SchoolClasses.ToList();
+
+            foreach (CourseModels course in courses)
+            {
+                foreach (SchoolClassModels schoolClass in schoolClasses)
+                {
+                    if (!schoolClass.Students.Contains(user))
+                        continue;
+                    if (course.SchoolClassID == schoolClass.SchoolClassID)
+                        tmp.Add(course);
+                }
+            }
+            return tmp;
+        }
     }
 }

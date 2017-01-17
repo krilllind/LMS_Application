@@ -43,6 +43,12 @@ namespace LMS_Application.Controllers
             return JsonConvert.SerializeObject(_repo.GetAllCourses(), Formatting.None, _jsonSettings);
         }
 
+        [HttpGet]
+        public string GetAllMyCourses()
+        {
+            return JsonConvert.SerializeObject(_repo.GetAllMyCourses(User.Identity.GetUserId()), Formatting.None, _jsonSettings);
+        }
+
         [HttpPost]
         public ActionResult AddStudentsToClass(string classID, string[] studentSSN)
         {

@@ -119,13 +119,13 @@
                 $scope.submitBtnText = "Register";
                 break;
             case "edit":
-                sendFormTo = "/Data/UpdateUser/";
+                sendFormTo = "/User/Update/";
                 popupResponseMessage = "User has successfully been updated!";
                 toDisable = "input, select, button[type=submit]";
                 $scope.submitBtnText = "Update";
                 break;
             case "remove":
-                sendFormTo = "/Data/RemoveUser/";
+                sendFormTo = "/User/Remove/";
                 popupResponseMessage = "User has successfully been removed!";
                 toDisable = "button[type=submit]";
                 $scope.submitBtnText = "Remove";

@@ -6,6 +6,8 @@ using Newtonsoft.Json.Serialization;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace LMS_Application.Controllers
 {
@@ -62,8 +64,14 @@ namespace LMS_Application.Controllers
         [ValidateAngularAntiForgery]
         public string GetSchedule(string schoolClassID = null)
         {
-            var courses = _repo.GetAll(schoolClassID);
-            return JsonConvert.SerializeObject(courses, Formatting.None, _jsonSettings);
+            return JsonConvert.SerializeObject(_repo.GetAll(schoolClassID), Formatting.None, _jsonSettings);
+        }
+
+        [HttpGet]
+        [ValidateAngularAntiForgery]
+        public string GetMySchedule()
+        {
+            return JsonConvert.SerializeObject(_repo.GetAllMyCourses(User.Identity.GetUserId()), Formatting.None, _jsonSettings);
         }
     }
 }

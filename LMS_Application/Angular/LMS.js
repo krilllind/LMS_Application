@@ -9,6 +9,7 @@ var basePath = "/Resources/Templates/";
 LMSApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
     $routeProvider
         .when("/", {
+            controller: "CourseController",
             templateUrl: basePath + "_courses.html"
         })
         .when("/Manage/User/:handle?", {
@@ -27,7 +28,7 @@ LMSApp.config(["$routeProvider", "$locationProvider", function ($routeProvider, 
             controller: "FileController",
             templateUrl: basePath + "_file.html"
         })
-        .when("/Courses/:lessonName?", {
+        .when("/Course/:handle?", {
             controller: "CourseController",
             templateUrl: basePath + "_courses.html"
         })
