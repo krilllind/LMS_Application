@@ -24,7 +24,7 @@
             if (index != -1)
                 $scope.selectedClass.students.splice(index, 1);
 
-            Request.Make("/Data/RemmoveStudentsFromClass/", "post", JSON.stringify({ classID: $scope.selectedClass.schoolClassID, studentSSN: student.ssn })).then(function (res) {
+            Request.Make("/Data/RemoveStudentsFromClass/", "post", JSON.stringify({ classID: $scope.selectedClass.schoolClassID, studentSSN: student.ssn })).then(function (res) {
                 $scope.students.push(student);
             });
         }
@@ -105,7 +105,7 @@
         });
 
         // Gets all students from the server //
-        Request.Make("/Data/GetAllUsers/", "get", { roleFilter: "Student" }).then(function (res) {
+        Request.Make("/User/GetAll/", "get", { roleFilter: "Student" }).then(function (res) {
             var tmp = [];
 
             angular.forEach(res.data, function (value, key) {

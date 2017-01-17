@@ -12,7 +12,7 @@ namespace LMS_Application.Models
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public string ProfileImage { get; set; }
+        public string ProfileImageID { get; set; }
         public string SSN { get; set; }
 
         [ForeignKey("SchoolClassModels")]
@@ -32,8 +32,8 @@ namespace LMS_Application.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<FileObjectModels> FilesObjects { get; set; }
+        public DbSet<FileObjectUserModels> FileObjectUsers { get; set; }
         public DbSet<CourseModels> Courses { get; set; }
-        public DbSet<ScheduleModels> Schedules { get; set; }
         public DbSet<SchoolClassModels> SchoolClasses { get; set; }
 
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false) {}

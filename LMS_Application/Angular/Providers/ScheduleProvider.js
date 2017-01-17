@@ -179,7 +179,7 @@
                             var x2 = x + (columnWidth / 2);
                             var y2 = y1 + (textHeight * 3.5);
 
-                            var lessonTypeTeacher = value.lessonType + ", " + value.teacher;
+                            var lessonTypeTeacher = value.subject + " " + value.courseLevel + ", " + value.teacher;
                             var classroom = value.classroom;
 
                             ctx.fillText(lessonTypeTeacher, x1, y1);
@@ -224,6 +224,13 @@
 
                 ctx.stroke();
             })();
+        }
+
+        // Add lessons to the schedule //
+        var addLessons = function (lessons) {
+            angular.forEach(lessons, function (value, key) {
+                allLessons.push(value);
+            });
         }
 
         // Initialize the canvas settings //
@@ -291,7 +298,8 @@
             UpdateCanvasSize: setSize,
             Draw: draw,
             Clear: clear,
-            element: canvas
+            element: canvas,
+            AddLessons: addLessons
         };
     }
 

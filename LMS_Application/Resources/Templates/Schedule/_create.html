@@ -1,0 +1,19 @@
+﻿<h4 class="col-sm-6 col-xs-12">Create new schedule</h4>
+
+<div class="form-group col-sm-6 col-xs-12 margin-top-bottom">
+    <div class="input-group">
+        <select class="form-control input-lg" ng-model="selectedClass" ng-change="SetSelectedClass(selectedClass)" required>
+            <option value="" disabled selected>Select School class</option>
+            <option ng-repeat="class in classes" value="{{class.schoolClassID}}">{{class.name}}</option>
+        </select>
+        <div class="input-group-addon">
+            <i class="fa fa-lg fa-users center-icon-block" aria-hidden="true"></i>
+            <div class="help-block info" ng-messages="selectedClass.$error">
+                <div ng-message="required">A subject is required.</div>
+                <div ng-message="valueUsed">{{courseForm.subject.valueUsedMessage}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-include="template.form" onload="SetDisabled()"></div>

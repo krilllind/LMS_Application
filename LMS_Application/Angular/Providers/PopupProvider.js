@@ -47,9 +47,6 @@
 
 (function () {
 
-    // The global app name //
-    var app = LMSApp;
-
     var PopupProvider = function () {
         var msgTypes = {
             ok: "success",
@@ -79,26 +76,6 @@
             return DisplayMessage(props["title"], props["message"], props["type"], OPTIONS);
         }
 
-        // File upload modal window //
-        var uploadModel = function (TITLE, INSTRUCTIONS, TYPE, OPTIONS) {
-            var props = Validate({
-                "title": TITLE,
-                "instructions": INSTRUCTIONS,
-                "type": TYPE
-            });
-
-            OPTIONS = Object.assign({
-                dragAndDrop: false,
-                allowedFileTypes: ["jpg", "png", "bmp"],
-                enableCancel: false,
-                confirmText: "Upload",
-                classes: ""
-            }, OPTIONS);
-
-            // Make modal show //
-            FileHandler(props["title"], props["message"], props["type"], OPTIONS);
-        }
-
         // Validate inputs //
         function Validate(OBJECT) {
             var tmp = angular.copy(OBJECT);
@@ -108,32 +85,6 @@
             });
 
             return OBJECT;
-        }
-
-        // Display the filehandler //
-        function FileHandler(ti, me, ty, opt) {
-            return swal({
-                title: ti,
-                html:
-                    "<p>" + me + "</p>" +
-                    (opt["dragAndDrop"]) ? "<div class='row'>" +
-                        "<div class='dragAndDropBox col-xs-6' id='popupDrop'></div>" +
-                        "<input type='file' class='swal2-file col-xs-5 col-xs-offset-1'>" +
-                    "</div>" : "",
-                type: ty,
-                width: "80vw",
-                showCancelButton: opt["enableCancel"],
-                confirmButtonText: opt["confirmText"],
-                customClass: opt["classes"]
-            }).then(function (result) {
-
-                return result;
-
-            }, function (dismiss) {
-
-                return "Closed by " + dismiss;
-
-            }).catch(swal.noop);
         }
 
         // Display the message //
@@ -148,25 +99,20 @@
                 confirmButtonText: opt["confirmText"],
                 customClass: opt["classes"]
             }).then(function (result) {
-
                 return result;
-
             }, function (dismiss) {
-
                 return "Closed by " + dismiss;
-
             }).catch(swal.noop);
         }
 
         // Provider access values //
         return {
             Message: msg,
-            Upload: uploadModel,
             types: msgTypes
         };
     }
 
-    app.factory("Popup", [
+    LMSApp.factory("Popup", [
         "$http",
         PopupProvider
     ]);

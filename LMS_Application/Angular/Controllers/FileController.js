@@ -2,8 +2,13 @@
 
     var FileController = function ($scope, Request, Popup, $filter, $routeParams) {
 
+        Request.Make("/Data/GetAllCourses/", "get").then(function (res) {
+            $scope.courses = res.data;
+            console.log($scope.courses);
+        });
+
         var displayImage = function (filename) {
-            Request.Make("/File/GetUrlByFilename/", "get", filename).then(function (res) {
+            Request.Make("/File/GenerateFileUrl/", "get", filename).then(function (res) {
                 $scope.url = res.data;
             });
 
@@ -13,17 +18,25 @@
         var uploadFile = function (files) {
             var fd = new FormData();
 
-            //fd.append("files", files);
-
-
             angular.forEach(files, function (value, key) {
-                console.log(key);
                 fd.append("file" + key, value);
             });
+            fd.append("Shared", $scope.checkbox.shared);
+            fd.append("CourseID", $scope.selectedCourse);
+
+            console.log($scope.selectedCourse);
 
             Request.Make("/File/UploadFiles/", "post", fd, null, { "Content-Type": undefined }, angular.identity).then(function (res) {
-                console.log(res.data);
+                if (res.status.ok) {
+                    angular.forEach(files, function (value, key) {
+                        Request.Make("/File/GenerateFileUrl/", "get", { fileName: value.name }).then(function (blob) {
+                            $scope.images.push(blob.data);
+                        });
+                    });
+                }
             });
+
+            console.log($scope.images.length);
         }
 
         var allFileNames = function () {
@@ -37,6 +50,17 @@
             var evt = document.createEvent("MouseEvents");
             evt.initEvent("click", true, false);
             fileDialog.dispatchEvent(evt);
+        }
+
+        // Set selected school class from list //
+        var setSelectedCourse = function (course) {
+            $scope.selectedCourse = course;
+            console.log($scope.selectedCourse);
+        }
+
+        var setShared = function() {
+            //$scope.shared = val;
+            console.log($scope.checkbox.shared);
         }
 
         // Get current subpage //
@@ -69,6 +93,8 @@
                 break;
         }
 
+        $scope.images = [];
+        $scope.selectedCourse = {};
         $scope.OpenFileExplorer = openFileExplorer;
         $scope.AllFileNames = allFileNames;
         $scope.DisplayImage = displayImage;
@@ -76,6 +102,12 @@
         $scope.FilesToUpload = [];
         $scope.buttonClicked = false;
         $scope.url = "";
+        $scope.blobUrl;
+        $scope.checkbox = {
+            shared: false
+        };
+        $scope.SetSelectedCourse = setSelectedCourse;
+        $scope.SetShared = setShared;
     }
 
     LMSApp.controller('FileController', [

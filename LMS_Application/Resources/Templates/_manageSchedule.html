@@ -1,23 +1,13 @@
-﻿<div class="theme-dark col-xs-12">
-    <h4 class="row col-xs-12">Manage schedules</h4>
+﻿<div class="theme-dark">
+    <ul class="nav nav-tabs">
+        <li role="presentation" ng-class="{'active' : currentPage == 'create'}"><a xref="/Manage/Schedule/Create/">Create</a></li>
+        <li role="presentation" ng-class="{'active' : currentPage == 'edit'}"><a xref="/Manage/Schedule/Edit/">Edit</a></li>
+        <li role="presentation" ng-class="{'active' : currentPage == 'remove'}"><a xref="/Manage/Schedule/Remove/">Remove</a></li>
+    </ul>
 
-    <form method="post" name="manageSchedule" ng-submit="TO_SOME_METHOD" class="row col-xs-12" autocomplete="off" novalidate>
-        <div class="form-group col-sm-6 col-xs-12">
-            <div class="input-group">
-                <input type="text" class="form-control input-lg" name="name" id="name" placeholder="Name" ng-model="schoolClass.name" ng-pattern="/^([a-z]|å|ä|ö| |[A-Z]|Å|Ä|Ö|[0-9]|-])+$/" ng-minlength="1" ng-maxlength="50" validate="registerForm.name" required />
-                <div class="input-group-addon">
-                    <i class="fa fa-lg fa-pencil center-icon-block" aria-hidden="true"></i>
-                    <div class="help-block info" ng-messages="registerForm.name.$error">
-                        <div ng-message="required">Firstname is required.</div>
-                        <div ng-message="pattern">Firstname can only contain characters A-Ö and numbers 0-9.</div>
-                        <div ng-message="valueUsed">{{registerForm.name.valueUsedMessage}}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+    <div ng-include="template[currentPage]" class="col-xs-12"></div>
 
-    <div class="image-wrapper col-xs-12">
+    <div class="image-wrapper col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
         <canvas id="ScheduleCanvas"></canvas>
         <i class="fa fa-circle-o-notch fa-spin fa-fw loading" id="canvasLoading"></i>
     </div>

@@ -17,10 +17,10 @@ namespace LMS_Application.Models
 
         [Required]
         public DateTime ValidTo { get; set; }
-
-        public virtual ScheduleModels Schedule { get; set; }
         
         public virtual ICollection<ApplicationUser> Students { get; set; }
+
+        public virtual ICollection<CourseModels> Courses { get; set; }
 
         public SchoolClassModels()
         {
