@@ -7,13 +7,13 @@ namespace LMS_Application.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class henru_fucking_up_stuff : IMigrationMetadata
+    public sealed partial class qwe : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(henru_fucking_up_stuff));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(qwe));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701162144053_henru_fucking_up_stuff"; }
+            get { return "201701171401386_qwe"; }
         }
         
         string IMigrationMetadata.Source

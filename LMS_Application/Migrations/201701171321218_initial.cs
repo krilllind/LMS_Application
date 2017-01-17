@@ -3,7 +3,7 @@ namespace LMS_Application.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class henru_fucking_up_stuff : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {

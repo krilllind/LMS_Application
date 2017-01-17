@@ -159,6 +159,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CollectionExtentions.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -169,13 +170,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701162144053_henru_fucking_up_stuff.cs" />
-    <Compile Include="Migrations\201701162144053_henru_fucking_up_stuff.Designer.cs">
-      <DependentUpon>201701162144053_henru_fucking_up_stuff.cs</DependentUpon>
+    <Compile Include="Migrations\201701171321218_initial.cs" />
+    <Compile Include="Migrations\201701171321218_initial.Designer.cs">
+      <DependentUpon>201701171321218_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701171313292_lastMig.cs" />
-    <Compile Include="Migrations\201701171313292_lastMig.Designer.cs">
-      <DependentUpon>201701171313292_lastMig.cs</DependentUpon>
+    <Compile Include="Migrations\201701171401386_qwe.cs" />
+    <Compile Include="Migrations\201701171401386_qwe.Designer.cs">
+      <DependentUpon>201701171401386_qwe.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -228,6 +229,10 @@
     <Content Include="Resources\Templates\Class\_create.html" />
     <Content Include="Resources\Templates\Class\_form.html" />
     <Content Include="Resources\Templates\Class\_remove.html" />
+    <Content Include="Resources\Templates\Course\_assignments.html" />
+    <Content Include="Resources\Templates\Course\_join.html" />
+    <Content Include="Resources\Templates\Course\_leave.html" />
+    <Content Include="Resources\Templates\Course\_mycourses.html" />
     <Content Include="Resources\Templates\File\_upload.html" />
     <Content Include="Resources\Templates\Schedule\_create.html" />
     <Content Include="Resources\Templates\Schedule\_edit.html" />
@@ -427,11 +432,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701162144053_henru_fucking_up_stuff.resx">
-      <DependentUpon>201701162144053_henru_fucking_up_stuff.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701171321218_initial.resx">
+      <DependentUpon>201701171321218_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701171313292_lastMig.resx">
-      <DependentUpon>201701171313292_lastMig.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701171401386_qwe.resx">
+      <DependentUpon>201701171401386_qwe.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
