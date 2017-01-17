@@ -173,6 +173,10 @@
     <Compile Include="Migrations\201701162144053_henru_fucking_up_stuff.Designer.cs">
       <DependentUpon>201701162144053_henru_fucking_up_stuff.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701171313292_lastMig.cs" />
+    <Compile Include="Migrations\201701171313292_lastMig.Designer.cs">
+      <DependentUpon>201701171313292_lastMig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FileObjectUserModels.cs" />
@@ -425,6 +429,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701162144053_henru_fucking_up_stuff.resx">
       <DependentUpon>201701162144053_henru_fucking_up_stuff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701171313292_lastMig.resx">
+      <DependentUpon>201701171313292_lastMig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
