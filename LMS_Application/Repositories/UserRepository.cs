@@ -92,6 +92,32 @@ namespace LMS_Application.Repositories
         /// <returns>
         /// Returns a list of ApplicationUsers
         /// </returns>
+
+        //public async Task<List<object>> GetAllUsersAsync(string roleFilter = null)
+        //{
+        //    List<object> temp = new List<object>();
+        //    foreach(ApplicationUser user in GetUsers(roleFilter))
+        //    {
+        //        var userRoles = await System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUser>().GetRolesAsync(user.Id);
+
+        //        temp.Add(new
+        //        {
+        //            ID = user.Id,
+        //            Firstname = user.Firstname,
+        //            Lastname = user.Lastname,
+        //            SSN = user.SSN,
+        //            ProfileImage = user.ProfileImageID ?? "http://placehold.it/100x100",
+        //            UserRole = userRoles.ToList().SingleOrDefault(),
+        //            Email = user.Email,
+        //            PhoneNumber = user.PhoneNumber,
+        //            UserName = user.UserName,
+        //            SchoolClassID = user.SchoolClassID
+        //        });
+        //    }
+
+        //    return temp;
+        //}
+
         public IEnumerable<object> GetAllUsers(string roleFilter = null)
         {
             return GetUsers(roleFilter).Select(user => new

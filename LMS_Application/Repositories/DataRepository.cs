@@ -1,15 +1,9 @@
 ﻿using LMS_Application.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace LMS_Application.Repositories
 {
@@ -42,6 +36,31 @@ namespace LMS_Application.Repositories
         public List<CourseModels> GetAllCourses()
         {
             return _context.Courses.ToList();
+        }
+
+        /// <summary>
+        /// Gets all courses from specific user
+        /// </summary>
+        /// <param name="userID">
+        /// Users ID
+        /// </param>
+        /// <returns>
+        /// Returns a list of CourseModels
+        /// </returns>
+        public List<CourseModels> GetAllMyCourses(string userID)
+        {
+            try
+            {
+                return _context.SchoolClasses
+                    .ToList()
+                        .SingleOrDefault(o => o.Students
+                            .Contains(_context.Users.Find(userID)))
+                            .Courses
+                            .ToList();
+            }
+            catch (Exception) {
+                return null;
+            }
         }
 
         /// <summary>
@@ -93,10 +112,11 @@ namespace LMS_Application.Repositories
         /// </returns>
         public void AddStudentsToClass(string classID, string[] studentSSN)
         {
-            SchoolClassModels schoolClass = GetSchoolClassById(classID);
-            foreach (ApplicationUser user in _context.Users.Where(o => studentSSN.Contains(o.SSN)) as List<ApplicationUser>)
-		        schoolClass.Students.Add(user);
-
+            _context.SchoolClasses.SingleOrDefault(cls => cls.SchoolClassID == classID)
+                .Students
+                .AddRange(_context.Users
+                    .Where(user => studentSSN
+                        .Contains(user.SSN)));
             _context.SaveChanges();
         }
 
@@ -114,10 +134,10 @@ namespace LMS_Application.Repositories
         /// </returns>
         public void RemoveStudentsFromClass(string classID, string[] studentSSN)
         {
-            SchoolClassModels schoolClass = GetSchoolClassById(classID);
-            foreach (ApplicationUser user in _context.Users.Where(o => studentSSN.Contains(o.SSN)) as List<ApplicationUser>)
-                schoolClass.Students.Remove(user);
-
+            _context.SchoolClasses.SingleOrDefault(cls => cls.SchoolClassID == classID)
+                .Students
+                .RemoveAll(user => studentSSN
+                    .Contains(user.SSN));
             _context.SaveChanges();
         }
 

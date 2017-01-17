@@ -94,7 +94,7 @@
         }
 
         $scope.images = [];
-        $scope.selectedCourse = {};
+        $scope.selectedCourse;
         $scope.OpenFileExplorer = openFileExplorer;
         $scope.AllFileNames = allFileNames;
         $scope.DisplayImage = displayImage;
